@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}All Users{% endblock %}
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-2" data-plugin="dragula">
+
+{% for user in object_list %}
+    <div class="col">
+        <div class="bg-dragula p-2 p-lg-4">
+            <div id="company-list-left" class="py-2">
+                <div class="card mb-0 mt-2">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start">
+                            {% if user.images %}
+                                <img src="{{ user.images.url }}" alt="image" class="me-3 d-none d-sm-block avatar-sm rounded-circle">
+                            {% else %}
+                                <img src="{% static 'images/users/avatar-1.jpg' %}" alt="image" class="me-3 d-none d-sm-block avatar-sm rounded-circle">
+                            {% endif %}
+                            <div class="w-100 overflow-hidden">
+                                <h5 class="mb-1 mt-0"><a href="{% url 'profile_user_get' user.username %}">{{ user.username }}</a></h5>
+                                <span class="badge {{ user.groups.first.name|lower }} rounded-pill p-1"> {{ user.groups.first }} </span>
+{#                                <p class="mb-0 text-muted">#}
+{#                                    <span class="fst-italic"><b>"</b>Disrupt pork belly poutine, asymmetrical tousled succulents selfies. You probably haven't heard of them tattooed master cleanse live-edge keffiyeh.</span>#}
+{#                                </p>#}
+                            </div> <!-- end w-100 -->
+                        </div> <!-- end d-flex -->
+                    </div> <!-- end card-body -->
+                </div> <!-- end col -->
+            </div> <!-- end company-list-1-->
+        </div> <!-- end div.bg-light-->
+    </div> <!-- end col -->
+{% endfor %}
+
+</div>
+{% endblock %}

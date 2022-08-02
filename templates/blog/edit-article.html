@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Редактирование записи
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+
+    <div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Projects</a></li>
+                    <li class="breadcrumb-item active">Project Details</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Project Details</h4>
+        </div>
+    </div>
+        </div>
+
+        <div class="row">
+
+
+            <div class="col-sm-9 card card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="tab-content" id="v-pills-tabContent-right">
+                        <div class="tab-pane fade active show" id="v-pills-home2" role="tabpanel" aria-labelledby="v-pills-home-tab2">
+                            <div class="row">
+                                <div class="col-6 mt-4">
+                                    <label for="id_title" class="form-label">Title</label>
+                                    {{ form.title }}
+                                </div>
+                                <div class="col-6 mt-4">
+                                    <label for="id_slug" class="form-label">URL</label>
+                                    {{ form.slug }}
+                                </div>
+                                <div class="col-12 mt-3 mb-3">
+                                    <label for="id_category" class="form-label">Category</label>
+                                    {{ form.category }}
+                                </div>
+                                <div class="col-12 mt-3 mb-3">
+                                    <label for="id_description" class="form-label">Description</label>
+                                    {{ form.description }}
+                                </div>
+                                <div class="col-12 mt-3 mb-3">
+                                    <label for="id_content" class="form-label">Content</label>
+                                    {{ form.content }}
+                                </div>
+                            </div>
+                        </div>
+{#                        <div class="tab-pane fade" id="v-pills-profile2" role="tabpanel" aria-labelledby="v-pills-profile-tab2">#}
+{#                            <p class="mb-0">#}
+{#                                <div class="row">#}
+{#                                    <div class="col-xl-12">#}
+{#                                        <div class="mb-3 mt-3 mt-xl-0">#}
+{#                                            <h5>Пожалуйста загрузите фотографию</h5>#}
+{#                                            <p class="text-muted font-14">Recommended thumbnail size 800x400 (px).</p>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                <div class="col-12 mt-3 mb-3">#}
+{#                                        <label for="id_image" class="form-label p-4 w-100 h-100 text-center align-middle" style="border:2px dashed #dee2e6;">#}
+{#                                            <i class="fas fa-cloud-upload-alt " style="font-size: 40px;"></i>#}
+{#                                            <h4>Drop files here or click to upload. </h4>#}
+{#                                        </label>#}
+{#                                    <input type="file" id="id_image" name="image" accept="image/*" hidden>#}
+{#                                </div>#}
+{#                                <div class="col-12">#}
+{#                                    <div class="d-none" id="preview-image"></div>#}
+{#                                </div>#}
+{#                                </div>#}
+{#                            </p>#}
+{#                        </div>#}
+{#                        <div class="tab-pane fade" id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings-tab2">#}
+{#                            <p class="mb-0">#}
+{#                                <div class="row">#}
+{#                                    <div class="col-xl-12">#}
+{#                                        <div class="mb-3 mt-3 mt-xl-0">#}
+{#                                            <h5>Пожалуйста загрузите фотографию</h5>#}
+{#                                            <p class="text-muted font-14">Recommended thumbnail size 800x400 (px).</p>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                <div class="col-12 mt-3 mb-3">#}
+{#                                        <label for="id_file" class="form-label p-4 w-100 h-100 text-center align-middle" style="border:2px dashed #dee2e6;">#}
+{#                                            <i class="fas fa-cloud-upload-alt " style="font-size: 40px;"></i>#}
+{#                                            <h4>Drop files here or click to upload. </h4>#}
+{#                                        </label>#}
+{#                                    <input type="file" id="id_file" name="file" accept="file/*" hidden multiple>#}
+{#                                </div>#}
+{#                                <div class="col-12">#}
+{#                                    <div class="d-none" id="preview-file"></div>#}
+{#                                </div>#}
+{#                                </div>#}
+{#                            </p>#}
+{#                        </div>#}
+                    <div class="col-12">
+                        <input id="id_save" type="submit" class="btn btn-primary btn-block w-100" value="Сохранить" name="_save">
+                    </div>
+                    </div>
+
+                </form><!-- end tabcontent-->
+            </div> <!-- end col-->
+
+
+            <div class="col-sm-3 mt-2 mt-sm-0">
+                <div class="nav flex-column nav-pills" id="v-pills-tab2" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active show" id="v-pills-home-tab2" data-bs-toggle="pill" href="#v-pills-home2" role="tab" aria-controls="v-pills-home2"
+                        aria-selected="true">
+                        <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                        <span class="d-none d-md-block">Start</span>
+                    </a>
+                    <a class="nav-link" id="v-pills-profile-tab2" data-bs-toggle="pill" href="#v-pills-profile2" role="tab" aria-controls="v-pills-profile2"
+                        aria-selected="false">
+                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                        <span class="d-none d-md-block">Image</span>
+                    </a>
+                    <a class="nav-link" id="v-pills-settings-tab2" data-bs-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2"
+                        aria-selected="false">
+                        <i class="mdi mdi-settings-outline d-md-none d-block"></i>
+                        <span class="d-none d-md-block">File</span>
+                    </a>
+                </div>
+            </div>
+                </div>
+             <!-- end col-->
+
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/select2.js' %}"></script>
+    {{ form.media }}
+    <script>
+    $(document).ready(function() {
+            $('#id_category').select2();
+        });
+    </script>
+{% endblock  %}

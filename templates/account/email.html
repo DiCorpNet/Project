@@ -1,0 +1,74 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Адресс электронной почты" %}{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Адресс электронной почты" %}</h1>
+{% if user.emailaddress_set.all %}
+<p>{% trans 'Следующие адреса электронной почты связаны с вашей учетной записью:' %}</p>
+
+<form action="{% url 'account_email' %}" class="email_list" method="post">
+{% csrf_token %}
+<fieldset class="blockLabels">
+
+  {% for emailaddress in user.emailaddress_set.all %}
+<div class="ctrlHolder">
+      <label for="email_radio_{{forloop.counter}}" class="{% if emailaddress.primary %}primary_email{%endif%}">
+
+      <input id="email_radio_{{forloop.counter}}" type="radio" name="email" {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked"{%endif %} value="{{emailaddress.email}}"/>
+
+{{ emailaddress.email }}
+    {% if emailaddress.verified %}
+    <span class="verified">{% trans "Проверено" %}</span>
+    {% else %}
+    <span class="unverified">{% trans "Непроверенный" %}</span>
+    {% endif %}
+      {% if emailaddress.primary %}<span class="primary">{% trans "Первичный" %}</span>{% endif %}
+</label>
+</div>
+  {% endfor %}
+
+<div class="buttonHolder">
+      <button class="secondaryAction" type="submit" name="action_primary" >{% trans 'Сделать основным' %}</button>
+      <button class="secondaryAction" type="submit" name="action_send" >{% trans 'Отправить подтверждение' %}</button>
+      <button class="primaryAction" type="submit" name="action_remove" >{% trans 'Удалить' %}</button>
+</div>
+
+</fieldset>
+</form>
+
+{% else %}
+<p><strong>{% trans 'Предупреждение:'%}</strong> {% trans "В настоящее время у вас нет настроенного адреса электронной почты. Вам действительно следует добавить адрес электронной почты, чтобы вы могли получать уведомления, сбрасывать пароль и т. д." %}</p>
+
+{% endif %}
+
+  {% if can_add_email %}
+    <h2>{% trans "Добавить адрес электронной почты" %}</h2>
+
+    <form method="post" action="{% url 'account_email' %}" class="add_email">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="action_add" type="submit">{% trans "Добавить E-mail" %}</button>
+    </form>
+  {% endif %}
+
+{% endblock %}
+
+
+{% block extra_body %}
+<script type="text/javascript">
+(function() {
+  var message = "{% trans 'Вы действительно хотите удалить выбранный адрес электронной почты?' %}";
+  var actions = document.getElementsByName('action_remove');
+  if (actions.length) {
+    actions[0].addEventListener("click", function(e) {
+      if (! confirm(message)) {
+        e.preventDefault();
+      }
+    });
+  }
+})();
+</script>
+{% endblock %}

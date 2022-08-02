@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+{% load imagepost_tags image_tags  extra_tags static i18n sizify %}
+{% block style %}
+   <link rel="stylesheet" href="{% static 'highlight/styles/agate.min.css' %}">
+{% endblock %}
+
+{% block title %}
+    Создать запись
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+
+    <div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                    <li class="breadcrumb-item active">{%  trans 'Создание записи' %}</li>
+                </ol>
+            </div>
+            <h4 class="page-title">{%  trans 'Создать запись' %}</h4>
+        </div>
+    </div>
+        </div>
+
+        <div class="row">
+
+
+            <div class="col-sm-9 card card-body">
+                <form action="{% url 'create-post' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="tab-content" id="v-pills-tabContent-right">
+                        <div class="tab-pane fade active show" id="v-pills-home2" role="tabpanel" aria-labelledby="v-pills-home-tab2">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 mt-4">
+                                    <label for="id_title" class="form-label">{% trans 'Заголовок' %}</label>
+                                    {{ form.title }}
+                                </div>
+                                <div class="col-md-6 col-sm-12 mt-4">
+                                    <label for="id_slug" class="form-label">{%  trans 'URL (заполняется автоматически)' %}</label>
+                                    {{ form.slug }}
+                                </div>
+                                <div class="col-12 mt-3 mb-3">
+                                    <label for="id_category" class="form-label">{%  trans 'Категория' %}</label>
+                                    {{ form.category }}
+                                </div>
+                                <div class="col-12 mt-3 mb-3">
+                                    <label for="id_description" class="form-label">{%  trans 'Демо текст' %}</label>
+                                    {{ form.description }}
+                                </div>
+                                <div class="col-12 mt-3 mb-3">
+                                    <label for="id_content" class="form-label">{%  trans 'Полный текс' %}</label>
+                                    {{ form.content }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-profile2" role="tabpanel" aria-labelledby="v-pills-profile-tab2">
+                            <p class="mb-0">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="mb-3 mt-3 mt-xl-0">
+                                            <h5>{%  trans 'Пожалуйста загрузите фотографию' %}</h5>
+                                            <p class="text-muted font-14">{%  trans 'Рекомендуемый размер 800x400 (px).' %}</p>
+                                        </div>
+                                    </div>
+                                <div class="col-12 mt-3 mb-3">
+                                        <label for="id_image" class="form-label p-4 w-100 h-100 text-center align-middle" style="border:2px dashed #dee2e6;">
+                                            <i class="fas fa-cloud-upload-alt " style="font-size: 40px;"></i>
+                                            <h4>{% trans 'Нажмите или перетащите файлы сюда.' %}</h4>
+                                        </label>
+                                    <input type="file" id="id_image" name="image" accept="image/*" hidden>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-none" id="preview-image"></div>
+                                </div>
+                                </div>
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings-tab2">
+                            <p class="mb-0">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="mb-3 mt-3 mt-xl-0">
+                                            <h5>{% trans 'Пожалуйста загрузите фотографию' %}</h5>
+                                            <p class="text-muted font-14">{%  trans 'Рекомендуемый размер 800x400 (px).' %}</p>
+                                        </div>
+                                    </div>
+                                <div class="col-12 mt-3 mb-3">
+                                        <label for="id_file" class="form-label p-4 w-100 h-100 text-center align-middle" style="border:2px dashed #dee2e6;">
+                                            <i class="fas fa-cloud-upload-alt " style="font-size: 40px;"></i>
+                                            <h4>{% trans 'Нажмите или перетащите файлы сюда.' %} </h4>
+                                        </label>
+                                    <input type="file" id="id_file" name="file" accept="file/*" hidden multiple>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-none" id="preview-file"></div>
+                                </div>
+                                </div>
+                            </p>
+                        </div>
+                    <div class="col-12">
+                        <input id="id_save" type="submit" class="btn btn-primary btn-block w-100" value="{% trans 'Сохранить' %}" name="_save">
+                    </div>
+                    </div>
+
+                </form><!-- end tabcontent-->
+            </div> <!-- end col-->
+
+
+            <div class="col-sm-3 mt-2 mt-sm-0">
+                <div class="nav flex-column nav-pills" id="v-pills-tab2" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active show" id="v-pills-home-tab2" data-bs-toggle="pill" href="#v-pills-home2" role="tab" aria-controls="v-pills-home2"
+                        aria-selected="true">
+                        <i class="mdi mdi-home-variant"></i> {% trans 'Контент' %}
+                    </a>
+                    <a class="nav-link" id="v-pills-profile-tab2" data-bs-toggle="pill" href="#v-pills-profile2" role="tab" aria-controls="v-pills-profile2"
+                        aria-selected="false">
+                        <i class="mdi mdi-camera"></i> {% trans 'Фотография' %}
+                    </a>
+                    <a class="nav-link" id="v-pills-settings-tab2" data-bs-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2"
+                        aria-selected="false">
+                        <i class="mdi mdi-content-save-settings"></i> {% trans 'Файлы' %}
+                    </a>
+                </div>
+            </div>
+                </div>
+             <!-- end col-->
+
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/select2.min.js' %}"></script>
+    {{ form.media }}
+    <script>
+    $(document).ready(function() {
+            $('#id_category').select2();
+        });
+
+    $('#id_image').on('change', function(e){
+            let img_data = document.getElementById('id_image').files[0];
+            let inpu = URL.createObjectURL(img_data)
+            document.getElementById('preview-image').innerHTML = '<div class="card mt-1 mb-0 shadow-none border">'+
+                                            '<div class="p-2">'+
+                                                '<div class="row align-items-center">'+
+                                                    '<div class="col-auto">'+
+                                                        '<img src="'+inpu+'" class="avatar-sm rounded bg-light" alt="">'+
+                                                    '</div>'+
+                                                    '<div class="col ps-0">'+
+                                                        '<a href="" class="text-muted fw-bold">'+ img_data.name +'</a>'+
+                                                        '<p class="mb-0"></p>'+
+                                                    '</div>'+
+                                                    '<div class="col-auto">'+
+                                                        <!-- Button -->
+                                                        '<a href="" class="btn btn-link btn-lg text-muted">'+
+                                                            '<i class="dripicons-cross"></i>'+
+                                                        '</a>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'
+            $('#preview-image').removeClass('d-none')
+        })
+
+    $('#id_file').on('change', function(e){
+            let img_data = document.getElementById('id_file').files;
+            for(i=0; img_data.length > i; i++){
+                let inpu = URL.createObjectURL(img_data[i])
+                document.getElementById('preview-file').innerHTML += '<div class="card mt-1 mb-0 shadow-none border">'+
+                                            '<div class="p-2">'+
+                                                '<div class="row align-items-center">'+
+                                                    '<div class="col-auto">'+
+                                                        '<img src="'+inpu+'" class="avatar-sm rounded bg-light" alt="">'+
+                                                    '</div>'+
+                                                    '<div class="col ps-0">'+
+                                                        '<a href="" class="text-muted fw-bold">'+ img_data[i].name +'</a>'+
+                                                        '<p class="mb-0"></p>'+
+                                                    '</div>'+
+                                                    '<div class="col-auto">'+
+                                                        <!-- Button -->
+                                                        '<a href="" class="btn btn-link btn-lg text-muted">'+
+                                                            '<i class="dripicons-cross"></i>'+
+                                                        '</a>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'
+
+            }
+
+            $('#preview-file').removeClass('d-none')
+        })
+
+
+    $('#id_title').on('keyup', function(){
+                console.log($('#id_slug').val())
+                let text = convertToSlug($('#id_title').val())
+                $('#id_slug').val(text)
+            })
+
+            jQuery.strtr=function(str, from, to)
+            {
+                let fr='', i=0, j=0, lenStr=0, lenFrom=0, tmpStrictForIn=false, fromTypeStr='', toTypeStr='', istr='';
+                let tmpFrom=[];
+                let tmpTo=[];
+                let ret='';
+                let match=false;
+
+
+                if(typeof from==='object')
+                {
+                    for(fr in from)
+                        if(from.hasOwnProperty(fr))
+                        {
+                            tmpFrom.push(fr);
+                            tmpTo.push(from[fr]);
+                        }
+
+                    from=tmpFrom;
+                    to=tmpTo;
+                }
+
+                lenStr=str.length;
+                lenFrom=from.length;
+                fromTypeStr=typeof from==='string';
+                toTypeStr=typeof to==='string';
+
+                for(i=0; i<lenStr; i++)
+                {
+                    match=false;
+                    if(fromTypeStr)
+                    {
+                        istr=str.charAt(i);
+                        for(j=0; j<lenFrom; j++)
+                            if(istr==from.charAt(j))
+                            {
+                                match=true;
+                                break;
+                            }
+                    }
+                    else
+                        for(j=0; j<lenFrom; j++)
+                            if(str.substr(i, from[j].length)==from[j])
+                            {
+                                match=true;
+                                i=(i+from[j].length)-1;
+                                break;
+                            }
+                    if(match) ret+=toTypeStr ? to.charAt(j) : to[j];
+                    else ret+=str.charAt(i);
+                }
+
+                return ret;
+            }
+
+            function convertToSlug(text){
+                let trans={
+                            'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'jo', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'jj',
+                            'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f',
+                            'х': 'kh', 'ц': 'c', 'ч': 'ch', 'ш': 'sh', 'щ': 'shh', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'eh', 'ю': 'ju', 'я': 'ja'
+                        };
+                return jQuery.strtr(text.toLowerCase(), trans)
+                            .replace(/[^A-Za-z0-9 _.]/g, '')
+                            .replace(/[ _\.]+/g, '-')
+                            .replace(/^-|-$/gm, '');
+            }
+    </script>
+{% endblock %}

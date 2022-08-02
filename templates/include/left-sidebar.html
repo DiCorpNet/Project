@@ -1,0 +1,86 @@
+{% load i18n mptt_tags %}
+<div class="h-100" id="leftside-menu-container" data-simplebar>
+
+    <ul class="side-nav">
+{#        <li class="side-nav-title side-nav-item"> <strong>Navigations</strong></li>#}
+        <li class="side-nav-item">
+                <a class="side-nav-link" href="/">
+                    <i class="uil uil-home "></i>
+                    <span> {% trans 'Главная' %} </span>
+                </a>
+        </li>
+    </ul>
+<!--- Sidemenu -->
+
+<ul class="side-nav">
+    {% recursetree category_list %}
+        {% if node.is_root_node %}
+        <li class="side-nav-title side-nav-item"> <strong>{{ node.name }}</strong></li>
+        {% endif %}
+        {% if not node.is_root_node %}
+            {% if not  node.is_leaf_node and node.get_descendant_count != 0 %}
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#{{ node.name }}" aria-expanded="false" aria-controls="{{ node.name }}" class="side-nav-link">
+                                {% if node.icon %}
+                                    {{ node.icon|safe }}
+                                {% endif %}
+                                <span> {{ node.name }} </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+              {% elif node.is_leaf_node and node.get_descendant_count == 0 and node.level == 1%}
+                    <li class="side-nav-item">
+                            <a class="side-nav-link" href="{{ node.get_absolute_url }}">
+                                {% if node.icon %}
+                                    {{ node.icon|safe }}
+                                {% endif %}
+
+                                <span> {{ node.name }} </span>
+                            </a>
+                    {% elif node.is_leaf_node and node.get_descendant_count == 0 and node.level == 2 %}
+                        <li class="side-nav-item">
+                            <a href="{{ node.get_absolute_url }}" class="side-nav-link">
+                                {% if node.icon %}
+                                    {{ node.icon|safe }}
+                                {% endif %}
+                                <span>{{ node.name }}</span>
+                            </a>
+             {% else %}
+                    <li><a href="{{ node.get_absolute_url }}" >{{ node.name }}</a>
+            {% endif %}
+        {% endif %}
+
+            {% if not node.is_leaf_node %}
+                {% if not node.is_root_node %}
+                    {% if not node.is_leaf_node and node.get_descendant_count != 0 %}
+                            <div class="collapse" id="{{ node.name }}">
+                                <ul class="side-nav-second-level" style="background: #444b59">
+                                    {{ children }}
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    {{ children }}
+                {% endif %}
+            {% endif %}
+    {% endrecursetree %}
+</ul>
+
+
+
+    <!-- Help Box -->
+<!--                    <div class="help-box text-white text-center">-->
+<!--                        <a href="javascript: void(0);" class="float-end close-btn text-white">-->
+<!--                            <i class="mdi mdi-close"></i>-->
+<!--                        </a>-->
+<!--                        <img src="assets/images/help-icon.svg" height="90" alt="Helper Icon Image" />-->
+<!--                        <h5 class="mt-3">Unlimited Access</h5>-->
+<!--                        <p class="mb-3">Upgrade to plan to get access to unlimited reports</p>-->
+<!--                        <a href="javascript: void(0);" class="btn btn-outline-light btn-sm">Upgrade</a>-->
+<!--                    </div>-->
+    <!-- end Help Box -->
+    <!-- End Sidebar -->
+
+    <div class="clearfix"></div>
+
+</div>

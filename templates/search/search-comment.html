@@ -1,0 +1,13 @@
+{% load static extra_tags image_tags %}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex">
+            <img src="{{ object.user.images|image }}" class="me-3 rounded-circle  avatar-md" alt="...">
+            <div class="w-100">
+                <h4><a href="{{ object.article.get_absolute_url }}#comment-{{ object.id }}" class="text-decoration-underline">Комментарий к записи "{{ object.article.title }}" </a></h4>
+                <h5 class="mx-3"><a href="">{{ object.user.username }}</a></h5>
+                <p class="mx-4">{{ object.content }}</p>
+            </div>
+        </div>
+    </div>
+</div>

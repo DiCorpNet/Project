@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load image_tags static %}
+
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Apps</a></li>
+                                            <li class="breadcrumb-item active">Chat</li>
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title">Messages</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <!-- start chat users-->
+                            <div class="col-xxl-3 col-xl-6 order-xl-1" id="message-box">
+                                <div class="card">
+                                    <div class="card-body p-0">
+{#                                        <ul class="nav nav-tabs nav-bordered">#}
+{#                                            <li class="nav-item">#}
+{#                                                <a href="#allUsers" data-bs-toggle="tab" aria-expanded="false" class="nav-link active py-2">#}
+{#                                                    All#}
+{#                                                </a>#}
+{#                                            </li>#}
+{#                                            <li class="nav-item">#}
+{#                                                <a href="#favUsers" data-bs-toggle="tab" aria-expanded="true" class="nav-link py-2">#}
+{#                                                    Favourties#}
+{#                                                </a>#}
+{#                                            </li>#}
+{#                                            <li class="nav-item">#}
+{#                                                <a href="#friendUsers" data-bs-toggle="tab" aria-expanded="true" class="nav-link py-2">#}
+{#                                                    Friends#}
+{#                                                </a>#}
+{#                                            </li>#}
+{#                                        </ul> <!-- end nav-->#}
+                                        <div class="tab-content">
+                                            <div class="tab-pane show active p-3" id="newpost">
+
+                                                <!-- start search box -->
+                                                <div class="app-search">
+                                                        <div class="mb-2 position-relative">
+                                                            <input id="search-user" type="text" class="form-control"
+                                                                placeholder="People, groups & messages..." />
+                                                            <span class="mdi mdi-magnify search-icon"></span>
+
+                                                            <div class="search-to position-absolute start-0 mt-2" style="z-index: 100">
+                                                                <span class="position-absolute close-search">
+                                                                    <i class="mdi mdi-close"></i>
+                                                                </span>
+                                                                <h5 class="text-center">Starch user</h5>
+                                                                <ul class="navbar-nav" id="user-search-list" style="min-height: 100px; overflow: auto; "></ul>
+                                                            </div>
+                                                        </div>
+
+                                                </div>
+                                                <!-- end search box -->
+
+                                                <!-- users -->
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="user-r" style="max-height: 550px">
+
+                                                            {% if users %}
+                                                                {% for item in users %}
+                                                                    <a href="" class="text-body" value="{{ item.room }}">
+                                                                        <div class="d-flex align-items-start bg-light p-2">
+                                                                            <img src="{{ item.user.image|image }}" class="me-2 rounded-circle" style="height: 48px; width: 60px;" />
+                                                                            <div class="w-100 overflow-hidden">
+                                                                                <h5 class="mt-0 mb-0 font-14">
+                                                                                    <span class="float-end text-muted font-12">5:30am</span>
+                                                                                    {{ item.user.username }}
+                                                                                </h5>
+                                                                                <p class="mt-1 mb-0 text-muted font-14">
+{#                                                                                    <span class="w-25 float-end text-end"><span class="badge badge-danger-lighten">2</span></span>#}
+                                                                                    <span class="w-75">Hey! a reminder for tomorrow's meeting...</span>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                {% endfor %}
+                                                                {% else %}
+                                                                <div class="alert alert-success">Sorry! No Dialog</div>
+                                                            {% endif %}
+
+
+
+                                                        </div> <!-- end slimscroll-->
+                                                    </div> <!-- End col -->
+                                                </div>
+                                                <!-- end users -->
+                                            </div> <!-- end Tab Pane-->
+                                        </div> <!-- end tab content-->
+                                    </div> <!-- end card-body-->
+                                </div> <!-- end card-->
+                            </div>
+                            <!-- end chat users-->
+
+                            <!-- chat area -->
+                            <div class="col-xxl-6 col-xl-12 order-xl-2" id="mesasage-box-chat">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <ul class="conversation-list" style="max-height: 537px; overflow: auto">
+                                        {% if messages %}
+                                                {% for message in messages %}
+                                                    {% if message.sender == request.user.username %}
+                                                        <li class="clearfix odd">
+                                                            <div class="chat-avatar">
+                                                                <img src="" alt="dominic" class="rounded" />
+                                                                <i>10:05</i>
+                                                            </div>
+                                                            <div class="conversation-text">
+                                                                <div class="ctext-wrap">
+                                                                    <i>{{ message.users }}</i>
+                                                                    <p>
+                                                                        {{ message.message }}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="conversation-actions dropdown">
+                                                                <button class="btn btn-sm btn-link" data-bs-toggle="dropdown"
+                                                                    aria-expanded="false"><i class='uil uil-ellipsis-v'></i></button>
+
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" href="#">Copy Message</a>
+                                                                    <a class="dropdown-item" href="#">Edit</a>
+                                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    {% else %}
+                                                        <li class="clearfix">
+                                                            <div class="chat-avatar">
+                                                                <img src="" class="rounded" alt="Shreyu N" />
+                                                                <i>10:00</i>
+                                                            </div>
+                                                            <div class="conversation-text">
+                                                                <div class="ctext-wrap">
+                                                                    <i>Shreyu N</i>
+                                                                    <p>
+                                                                        Hello!
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="conversation-actions dropdown">
+                                                                <button class="btn btn-sm btn-link" data-bs-toggle="dropdown"
+                                                                    aria-expanded="false"><i class='uil uil-ellipsis-v'></i></button>
+
+                                                                <div class="dropdown-menu dropdown-menu-end">
+                                                                    <a class="dropdown-item" href="#">Copy Message</a>
+                                                                    <a class="dropdown-item" href="#">Edit</a>
+                                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                        {% endif %}
+                                        </ul>
+
+                                        <div class="row" id="message-input" style="display: none">
+                                            <div class="col">
+                                                <div class="mt-2 bg-light p-3 rounded">
+                                                        <div class="row">
+                                                            <div class="col mb-2 mb-sm-0">
+                                                                <input id="chattext" type="text" class="form-control border-0" placeholder="Enter your text" required="">
+                                                                <div class="invalid-feedback">
+                                                                    Please enter your messsage
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-auto">
+                                                                <div class="btn-group">
+{#                                                                    <a href="#" class="btn btn-light"><i class="uil uil-paperclip"></i></a>#}
+{#                                                                    <a href="#" class="btn btn-light"> <i class='uil uil-smile'></i> </a>#}
+                                                                    <div class="d-grid">
+                                                                        <button type="button" class="btn btn-success chat-send"><i class='uil uil-message'></i></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div> <!-- end col -->
+                                                        </div> <!-- end row-->
+                                                </div>
+                                            </div> <!-- end col-->
+                                        </div>
+
+                                        <!-- end row -->
+                                    </div> <!-- end card-body -->
+                                </div> <!-- end card -->
+                            </div>
+                            <!-- end chat area-->
+
+                            <!-- start user detail -->
+                            <div class="col-xxl-3 col-xl-6 order-xl-1 order-xxl-2" id="u-info">
+                                 <!-- end card-->
+                            </div> <!-- end col -->
+                            <!-- end user detail -->
+                        </div> <!-- end row-->
+
+                    </div> <!-- container -->
+{% endblock %}
+
+
+{% block javascript %}
+    <script>
+        let user_in = '{{ request.user.username }}'
+    </script>
+    <script src="{% static 'js/messages.js' %}"></script>
+{% endblock %}

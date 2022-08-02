@@ -1,0 +1,311 @@
+{% extends 'base.html' %}
+{% load imagepost_tags image_tags  extra_tags static i18n sizify %}
+{% block style %}
+   <link rel="stylesheet" href="{% static 'highlight/styles/agate.min.css' %}">
+{% endblock %}
+
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+
+
+
+{% block content %}
+    {% url 'account_login' as login_in %}
+    {% url 'account_signup' as sign_in %}
+    <div class="modal fade" id="delete-article" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="dripicons-information h1 text-info"></i>
+                    <h4 class="mt-2">{% trans 'Удаление записи!' %}</h4>
+                    <p>{% trans 'Вы действительно хотите удалить запись' %} <strong>"{{ object }}"</strong>?</p>
+                    <form action="{% url 'article-delete' article.slug %}" method="post">
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-info me-2" data-bs-dismiss="modal"><i class="mdi mdi-close-thick"></i> {% trans 'Нет' %}</button>
+                    <button type="submit" class="btn btn-danger mx-2"><i class="mdi mdi-check-bold"></i> {% trans 'Да' %}</button>
+                </form>
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+
+<div class="container-fluid">
+
+                        <!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="/"><i class="mdi mdi-home" style="font-size: 15px"></i></a></li>
+                        {% for item in breadcrumbs %}
+
+                            {% if item.link == True %}
+                                <li class="breadcrumb-item">{{ item.title }}</li>
+                            {% else %}
+                                <li class="breadcrumb-item"><a href="{{ item.url }}">{{ item.title }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-xxl-8 col-lg-6">
+        <!-- project card -->
+        <div class="card d-block" style="color: black;">
+            <div class="card-body">
+                <div class="dropdown float-end">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="dripicons-dots-3"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <!-- item-->
+                        <a href="{% url 'article-edit' article.slug %}" class="dropdown-item"><i class="mdi mdi-pencil me-1"></i>{% trans 'Редактировать' %}</a>
+                        <!-- item-->
+                        <a data-bs-toggle="modal" data-bs-target="#delete-article" class="dropdown-item"><i class="mdi mdi-delete me-1"></i>{% trans 'Удалить' %}</a>
+                        <!-- item-->
+                    </div>
+                </div>
+                <!-- project title-->
+                <div class="row">
+                    <div class="col-3">
+                        <img src="{{ article.image|image_post }}" alt="" class="img-fluid rounded">
+                    </div>
+                    <div class="col-9">
+                        <h3 class="mt-0 text-center">
+                            {{ article.title }}
+                        </h3>
+                    </div>
+                </div>
+
+                <p class="mb-2 mt-2">
+                    {{ article.content|safe }}
+                </p>
+
+
+
+                <div id="tooltip-container" style="background-color: ghostwhite;">
+                    <small style="cursor: pointer;" class="text-muted p-1">
+                        <i class="uil uil-user"></i> <span><a href="{% url 'profile_user_get' article.user.username %}">{{ article.user.username }}</a></span>
+                    </small>
+                    <small class="nav-item">
+                        <i class="uil uil-calendar-alt"></i>  <span>{{ article.create_at }}</span>
+                    </small>
+                    <small style="cursor: pointer;" class="text-muted p-1">
+                        <i class="dripicons-view-apps"></i> <span><a href="{{ article.category.get_absolute_url }}">{{ article.category.name }}</a></span>
+                    </small>
+                    <small style="cursor: pointer;" class="text-muted p-1">
+                        <i class="dripicons-message"></i> <span><a href="">{{ article.comments.count }}</a></span>
+                    </small>
+                    <small style="cursor: pointer;" class="text-muted p-1 like" data-id="{{ article.id }}">
+                        <i class="mdi mdi-heart align-middle {% if article.likes.all|urer_true:request.user %} text-danger {% endif %}" ></i>
+                        <span>{{ article.likes_count }}</span>
+                    </small>
+                    <small style="cursor: pointer;" class="text-muted p-1" data-id="{{ article.id }}" data-action="bookmark" title="Избранное">
+                        <i class="dripicons-star {% if article.bookmark_article.all|user_in:request.user %}text-danger{% endif %}"></i>
+                        <span>{{ article.get_bookmark_count }}</span>
+                    </small>
+                </div>
+
+            </div> <!-- end card-body-->
+
+        </div> <!-- end card-->
+
+        <div class="card" id="comments">
+            <div class="card-body">
+                <h4 class="mt-0 mb-3">{% trans 'Комментарии' %} ({{ comments.count }})</h4>
+
+                {% if comments %}
+                    {% for comment in comments %}
+                        <div class="mt-3" >
+                            <div class="d-flex" id="comment-{{ comment.id }}">
+                                <img class="me-3 avatar-sm rounded-circle" src="{{ comment.user.images|image }}" alt="Generic placeholder image" height="32">
+                                <div class="w-100">
+                                    <h5 class="m-0">
+                                        <span><a href="{% url 'profile_user_get' comment.user.username %}">{{ comment.user.username }}</a></span>
+                                        {% if comment.parent.id %}
+                                       <span><i class="mdi mdi-arrow-right-bold-outline"></i></span>
+                                        <span><a href="#comment-{{ comment.parent.id }}" class="text-muted">{{ comment.parent.user.username }}</a></span>
+                                        {% endif %}
+                                    </h5>
+                                    <p class="text-muted mb-0"><small>2 mins ago</small></p>
+
+                                    <p class="my-1">{{ comment.content|safe }}</p>
+
+                                    {% if comment.file %}
+                                        <div class="card mb-1 shadow-none border">
+                                            <div class="p-2">
+                                            <div class="row align-items-center">
+                                        {% if request.user.is_authenticated %}
+
+                                                    <div class="col-auto">
+                                                        {{ comment|path_file }}
+                                                    </div>
+                                                    <div class="col ps-0">
+                                                        <a href="{{ comment.file.url }}" class="text-muted fw-bold" download="True">{{ comment.filename }}</a>
+                                                        <p class="mb-0">{{ comment.file.size|sizify }}</p>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!-- Button -->
+                                                        <a href="{{ comment.file.url }}" class="btn btn-link btn-lg text-muted" download="True">
+                                                            <i class="dripicons-download"></i>
+                                                        </a>
+                                                    </div>
+
+                                        {% else %}
+                                            <div class="col">
+                                            {% blocktranslate %}
+                                            <p class="text-center align-middle d-block"><a href="{{ login_in }}">Войти</a> или <a href="{{ sign_in }}">Зарегистрироваться</a> для скачивания файлов.</p>
+                                            {% endblocktranslate %}
+                                            </div>
+                                        {% endif %}
+                                            </div>
+                                        </div>
+                                        </div>
+                                    {% endif %}
+
+
+                                    {% if request.user.is_authenticated %}
+                                    <div>
+                                        <a href="javascript: void(0);" class="btn btn-sm btn-link text-muted p-0 like-comment" data-id="{{ comment.id }}">
+                                            <i class='uil uil-heart me-1'></i> Like <span>{{ comment.likes_count }}</span>
+                                        </a>
+                                        <a href="#com" data-id="{{ comment.id }}" data-author="{{ comment.user.username }}" class="btn btn-sm btn-link text-muted p-0 ps-2 reply">
+                                            <i class='uil uil-comments-alt me-1'></i> {% trans 'Ответить' %}
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                </div> <!-- end w-100 -->
+                            </div> <!-- end d-flex -->
+                        </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="mt-3 text-center">
+                        <div class="alert alert-info">{% trans 'Комментариев нет' %}</div>
+                    </div>
+                {% endif %}
+
+
+                <hr class="mt-3">
+                {% if request.user.is_authenticated %}
+                    <div id="auth" class="p-2" style="display: none;">{% trans 'Ответить' %} <strong></strong> <i id="closed-reply" class="uil uil-multiply" style="color:red; font-weight: bold; cursor: pointer; padding-left: 5px;"></i></div>
+                    <form action="{% url 'add_comment' article.id %}" method="post" id="com" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {{ form_comment.comment_area }}
+                        {{ form_comment.file }}
+                        <div class="text-end">
+                            <div class="btn-group mb-2 ">
+                                <div class="previev p-1" style="background: #f1f1f1; display: none;">
+                                    <span class="align-middle"></span> <i class="dripicons-cross text-danger" style="cursor: pointer;" id="clearComFile"></i>
+                                </div>
+                            </div>
+                            <div class="btn-group mb-2">
+                                <a class="btn btn-link btn-sm text-muted font-18" id="comfile"><i class="dripicons-paperclip"></i></a>
+                            </div>
+                            <div class="btn-group mb-2 ms-2">
+                                <button type="submit" class="btn btn-primary btn-sm">{% trans 'Отправить' %}</button>
+                            </div>
+                        </div>
+                    </form>
+                    {% else %}
+                        <div class="text-center">
+                            <div class="alert alert-success">
+                                {% blocktranslate %}
+                                Комментарии могут оставлять только зарегистрированные пользователи. Пожалуйста <a
+                                    href="{{ login_in }}">Войти</a> или <a href="{{ sign_in }}">Зарегистрироваться</a>
+                                {% endblocktranslate %}
+                            </div>
+                        </div>
+                {% endif %}
+            </div> <!-- end card-body-->
+        </div>
+        <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-lg-6 col-xxl-4">
+{#        <div class="card">#}
+{#            <div class="card-body">#}
+{#                <h5 class="card-title mb-3">Progress</h5>#}
+{#                <div dir="ltr">#}
+{#                    <div class="mt-3 chartjs-chart" style="height: 320px;">#}
+{#                        <canvas id="line-chart-example"></canvas>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+        <!-- end card-->
+
+        {% if files %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-3">{% trans 'ФайлЬы' %}</h5>
+
+                {% for item in files %}
+                        <div class="card mb-1 shadow-none border">
+                        <div class="p-2">
+                            <div class="row align-items-center">
+                                {% if request.user.is_authenticated %}
+                                <div class="col-auto">
+                                   {{ item|path_file }}
+                                </div>
+                                {% if item.secure %}
+                                    <div class="col ps-0">
+                                        <a href="{{ item.file.url }}" class="text-muted fw-bold">{{ item.filename }}</a>
+                                        <p class="mb-0">{{ item.file.size|sizify }}</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <!-- Button -->
+                                        <a href="{{ item.file.url }}" class="btn btn-link btn-lg text-muted" download="">
+                                            <i class="dripicons-download"></i>
+                                        </a>
+                                    </div>
+                                {% else %}
+                                    <div class="col ps-0">
+                                        <a>{{ item.filename }} <span class="text-muted"></span></a>
+                                        <p>{% trans 'Пользователь ограничил скачивание данного файла' %}</p>
+                                    </div>
+                                {% endif %}
+                                    {% else %}
+                                    <div class="col">
+                                        {% blocktrans %}
+                                        <p>Скачивание доступно только зарегистрированным пользователям</p>
+                                        <p class="text-center"><a href="{{ login_in }}">Войти</a> или <a href="{{ sign_in }}">Зарегистрироватися</a></p>
+                                        {% endblocktrans %}
+                                    </div>
+                                 {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+
+
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<!-- end row -->
+
+</div> <!-- container -->
+</div></div>
+
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'highlight/highlight.min.js' %}"></script>
+    <script>hljs.highlightAll();</script>
+    <script src="{% static 'js/comment.js' %}"></script>
+{% endblock %}

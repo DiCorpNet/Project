@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static i18n carusel_tags extra_tags %}
+
+{% block title %} {% trans 'Главная' %} {% endblock %}
+
+{% block content%}
+<div class="container-fluid">
+
+                        <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="/"><i class="mdi mdi-home" style="font-size: 15px"></i></a></li>
+                        {% for item in breadcrumbs %}
+                            <li class="breadcrumb-item"><a href="{{ item.url }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+
+            <!-- CONTENT MY -->
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="mb-4 mt-4">{% trans 'Блог' %}</h4>
+                </div> <!-- end col -->
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="row row-cols-1 row-cols-md-3 g-3">
+
+                        {% if article_list %}
+                            {% for article in article_list %}
+                                <div class="col">
+                                    <div class="card">
+                                        <img src="{{  article.image.url }}" class="card-img-top article-img" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h5>
+                                            <p class="card-text">{{ article.description|slice:":200"|safe }}</p>
+                                            <p class="card-text">
+                                                <small class="text-muted">Last updated 3 mins ago</small>
+                                            </p>
+                                            <p class="card-text">
+
+                                                <small style="cursor: pointer;" class="text-muted p-1">
+                                                    <i class="uil uil-user"></i> <span><a href="{% url 'profile_user_get' article.user.username %}">{{ article.user.username }}</a></span>
+                                                </small>
+                                                <small class="nav-item">
+                                                    <i class="uil uil-calendar-alt"></i>  <span>{{ article.create_at }}</span>
+                                                </small>
+                                                <small style="cursor: pointer;" class="text-muted p-1">
+                                                    <i class="dripicons-view-apps"></i> <span><a href="{{ article.category.get_absolute_url }}">{{ article.category.name }}</a></span>
+                                                </small>
+                                                <small style="cursor: pointer;" class="text-muted p-1">
+                                                    <i class="dripicons-message"></i> <span><a href="{{ article.get_absolute_url }}#comments">{{ article.comments.count }}</a></span>
+                                                </small>
+                                                <small style="cursor: pointer;" class="nav-item like" data-id="{{ article.id }}">
+                                                    <i class="mdi mdi-heart align-middle {% if article.likes_user %} text-danger {% endif %}" ></i>
+                                                    <span>{{ article.likes_count }}</span>
+                                                </small>
+                                                <small style="cursor: pointer;" class="text-muted p-1" data-id="{{ article.id }}" data-action="bookmark" title="Избранное">
+                                                    <i class="dripicons-star {% if article.bookmark_article.all|user_in:request.user %}text-danger{% endif %}"></i>
+                                                    <span data-count="bookmark">{{ article.get_bookmark_count }}</span>
+                                                </small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div> <!-- end col-->
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="mb-4">{% trans 'Популярные записи' %}</h4>
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+
+
+            {% popular_article as carousel_list %}
+            <div id="carouselExampleCaption" class="carousel slide" data-bs-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for carousel_item in carousel_list %}
+                        {% if carousel_item.position == 0 %}
+                            <li data-bs-target="#{{ carousel_item.popular.slug }}" data-bs-slide-to="{{ carousel_item.position }}" class="active"></li>
+                            {% else %}
+                            <li data-bs-target="#{{ carousel_item.popular.slug }}" data-bs-slide-to="{{ carousel_item.position }}"></li>
+                        {% endif %}
+                    {% endfor %}
+
+                </ol>
+                <div class="carousel-inner" role="listbox">
+
+                    {% for item in carousel_list %}
+                        {% if item.position == 0 %}
+                            <div class="carousel-item active">
+                        {% else %}
+                            <div class="carousel-item">
+                        {% endif %}
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="row g-0 align-items-center">
+                                        <div class="col-md-4">
+                                            <img src="{{   item.popular.image.url }}" class="card-img article-img" alt="...">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><a href="{{ item.popular.get_absolute_url }}">{{item.popular.title }}</a></h5>
+                                                <p class="card-text">{{ item.popular.description|safe }}</p>
+                                                <p class="card-text"><small class="text-muted">Lasts updated 3 mins ago</small></p>
+                                            </div> <!-- end card-body-->
+                                        </div> <!-- end col -->
+                                    </div> <!-- end row-->
+                                </div> <!-- end card-->
+                            </div>
+                        </div>
+                    {%  endfor %}
+
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleCaption" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleCaption" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </div>
+
+            <!-- END CONTENT MY -->
+
+        </div>
+    </div>
+            <!-- end page title -->
+
+    </div></div>
+{% endblock content%}

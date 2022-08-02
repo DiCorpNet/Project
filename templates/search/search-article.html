@@ -1,0 +1,25 @@
+{% load static imagepost_tags %}
+<div class="card">
+    <div class="row">
+        <div class="col-2">
+            <img src="{{ object.image|image_post }}" class="card-img" alt="...">
+        </div>
+        <div class="col-10">
+            <div class="card-body">
+                <h5 class="card-title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h5>
+                <p class="card-text">{{ object.description|safe }}</p>
+                <p class="card-text">
+                    <small style="cursor: pointer;" class="text-muted p-1">
+                        <i class="uil uil-user"></i> <span><a href="">{{ object.user.username }}</a></span>
+                    </small>
+                    <small class="nav-item">
+                        <i class="uil uil-calendar-alt"></i>  <span>{{ object.create_at }}</span>
+                    </small>
+                    <small style="cursor: pointer;" class="text-muted p-1">
+                        <i class="dripicons-view-apps"></i> <span><a href="{{ object.category.get_absolute_url }}">{{ object.category.name }}</a></span>
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
