@@ -14,7 +14,7 @@ def upload_avatar(self,filename):
     return 'images/avatar/user_{0}/{1}'.format(self.id, uuid.uuid4().hex)
 
 
-class User(AbstractUser):
+class MyUser(AbstractUser):
     last_online = models.DateTimeField(null=True, blank=True)
     about_us = models.TextField(null=True, blank=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True)

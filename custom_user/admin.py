@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from modeltranslation.admin import TranslationAdmin
-from .models import User
+from .models import MyUser
 
 
 class UserAdmin(TranslationAdmin, BaseUserAdmin):
@@ -39,4 +39,4 @@ class UserAdmin(TranslationAdmin, BaseUserAdmin):
 
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(MyUser, UserAdmin)

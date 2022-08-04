@@ -1,11 +1,11 @@
 from django import forms
 
-from .models import User
+from .models import MyUser
 
 
 class UserFormUpdate(forms.ModelForm):
     class Meta:
-        model = User
+        model = MyUser
         fields = ['first_name','last_name','image', 'password', 'email', 'link_github', 'link_vk', 'about_us']
 
         widgets = {

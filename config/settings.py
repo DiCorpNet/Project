@@ -81,10 +81,12 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL = 'custom_user.User'
+
 
 WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.asgi.application'
+
+AUTH_USER_MODEL = 'custom_user.MyUser'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

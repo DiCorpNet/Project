@@ -1,7 +1,7 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import User
+from .models import MyUser
 
 
-@register(User)
+@register(MyUser)
 class UserTranslationOptions(TranslationOptions):
     fields = ('about_us',)

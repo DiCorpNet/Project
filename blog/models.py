@@ -66,7 +66,7 @@ class Article(models.Model):
 
     class Meta:
         ordering = ['-id']
-        indexes = [GinIndex(fields=['title'])]
+        # indexes = [GinIndex(fields=['title'])]
 
 
     def likes_count(self):
@@ -105,7 +105,6 @@ class Comment(models.Model):
     TEMPLATE_PREVIEW = 'search/search-comment.html'
     class Meta:
         db_table = 'comments'
-        indexes = [GinIndex(fields=['content'])]
 
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')

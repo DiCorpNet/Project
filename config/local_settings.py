@@ -12,7 +12,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.3']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'myblog',
+        'NAME': 'myblog2',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': '127.0.0.1',

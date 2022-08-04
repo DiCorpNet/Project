@@ -9,7 +9,7 @@ from django.templatetags.static import static
 
 from .models import MessageDialog, MessageRoom
 from .service import hashsum_dialog
-from custom_user.models import User
+from custom_user.models import MyUser
 
 
 @login_required()
@@ -35,7 +35,7 @@ def SearchUser(request, user_name):
     if user_name:
         hash = hashsum_dialog()
         user_name = user_name.strip(' ')
-        result = User.objects.filter(username__icontains=user_name).exclude(id__in=rooms)
+        result = MyUser.objects.filter(username__icontains=user_name).exclude(id__in=rooms)
         for user in result:
             if user.image:
                 item = {'username': user.username, 'image': user.image.url, 'room': hash }
@@ -49,7 +49,7 @@ def create_dialog(request):
     data = json.loads(request.body)
     room = data['room']
     user_to = data['userto']
-    user_too = User.objects.get(username=user_to)
+    user_too = MyUser.objects.get(username=user_to)
 
     result = MessageRoom.objects.create(layer=room)
     result.user.add(request.user)

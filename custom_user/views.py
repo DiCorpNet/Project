@@ -1,16 +1,11 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView
 
-from .forms import UserFormUpdate
-from .models import User
+from .models import MyUser
 from blog.models import Article, Comment, Files
 
 
 class ProfileAllList(ListView):
-    model = User
+    model = MyUser
     paginate_by = 5
 
 
@@ -19,7 +14,7 @@ class ProfileUser(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['profile'] = User.objects.get(username=self.kwargs.get('user_slug'))
+        context['profile'] = MyUser.objects.get(username=self.kwargs.get('user_slug'))
         # context['form'] = UserFormUpdate(instance=self.request.user)
         return context
 
@@ -33,7 +28,7 @@ class ProfileUserArticle(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
-        context['profile'] = User.objects.get(username=self.kwargs.get('user_slug'))
+        context['profile'] = MyUser.objects.get(username=self.kwargs.get('user_slug'))
         return context
 
 class ProfileUserComments(ListView):
@@ -45,7 +40,7 @@ class ProfileUserComments(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
-        context['profile'] = User.objects.get(username=self.kwargs.get('user_slug'))
+        context['profile'] = MyUser.objects.get(username=self.kwargs.get('user_slug'))
         return context
 
 class ProfileUserFiles(ListView):
