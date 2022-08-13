@@ -40,18 +40,18 @@ class MessageConsumer(AsyncWebsocketConsumer):
                 res = data.user.image.url
             else:
                 res = static('images/users/avatar-2.jpg')
-                await self.channel_layer.group_send(
-                    self.group_room_name,
-                    {
-                        'type': 'chat_message',
-                        'user': data.user.username,
-                        'user_in': self.scope['user'].username,
-                        'user_image': res,
-                        'text': data.text,
-                        'created': data.created.strftime("%H:%M"),
-                        'id': data.id
-                    }
-                )
+            await self.channel_layer.group_send(
+                self.group_room_name,
+                {
+                    'type': 'chat_message',
+                    'user': data.user.username,
+                    'user_in': self.scope['user'].username,
+                    'user_image': res,
+                    'text': data.text,
+                    'created': data.created.strftime("%H:%M"),
+                    'id': data.id
+                }
+            )
 
     async def channel_open(self, event):
         message = await self.channel_open_data(self.group_room_name)

@@ -18,8 +18,14 @@ def index(request):
     result = list()
     if rooms:
         for room in rooms:
+            der = MessageDialog.objects.filter(layer__layer=room.layer).order_by('-id').first()
+            print(der)
+            if der:
+                mass = {'user': der.user, 'text': der.text }
+            else:
+                mass = {'text': 'No message '}
             for user in room.user.all().exclude(id=request.user.id):
-                res = {'room': room.layer, "user": {'username': user.username, 'image': user.image, 'id': user.id}}
+                res = {'room': room.layer, "user": {'username': user.username, 'image': user.image, 'id': user.id}, 'after_message' : mass }
                 result.append(res)
     return render(request, 'message/chat.html', context={'users': result})
 
@@ -40,7 +46,7 @@ def SearchUser(request, user_name):
             if user.image:
                 item = {'username': user.username, 'image': user.image.url, 'room': hash }
             else:
-                item = {'username': user.username, 'image': static(), 'room': hash}
+                item = {'username': user.username, 'image': static('images/users/avatar-2.jpg'), 'room': hash}
             userlist.append(item)
     return JsonResponse(userlist, safe=False)
 

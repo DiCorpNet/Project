@@ -84,7 +84,12 @@
                                                                                 </h5>
                                                                                 <p class="mt-1 mb-0 text-muted font-14">
 {#                                                                                    <span class="w-25 float-end text-end"><span class="badge badge-danger-lighten">2</span></span>#}
-                                                                                    <span class="w-75">Hey! a reminder for tomorrow's meeting...</span>
+                                                                                    <span class="w-75" id="after_message">
+                                                                                        {% if item.after_message.user == request.user %}
+                                                                                            <strong>You : </strong>
+                                                                                        {% endif %}
+                                                                                        {{ item.after_message.text }}
+                                                                                    </span>
                                                                                 </p>
                                                                             </div>
                                                                         </div>

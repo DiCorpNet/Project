@@ -16,7 +16,7 @@ class NotificationManager(models.Manager):
         return super().get_queryset()
 
     def all(self, recipient):
-        return self.get_queryset().filter(recipient=recipient,read=False)
+        return self.get_queryset().filter(recipient=recipient, read=False)
 
 
 class Notifications(models.Model):

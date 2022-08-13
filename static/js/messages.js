@@ -29,6 +29,7 @@ $('#search-user').on('keyup', function(e){
         axios.get('/message/search-user/' + search + '/').then(response => {
             let user = response.data
             if(user.length != 0){
+                slist.innerHTML = ''
                 for(i=0; user.length > i; i++){
                 slist.innerHTML += '<li class="nav-item" value="'+ user[i].room +'">' +
                                     '       <div class="row">' +
@@ -87,6 +88,7 @@ function connectWS(room){
             'type': 'open'
         }));
         $(".conversation-list").animate({ scrollTop: 20000000 }, "slow");
+        $('#after_message').html('')
         console.log('Connection Established')
     }
 
