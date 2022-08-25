@@ -128,7 +128,7 @@
                 </div>
 
                 <!-- All-->
-                <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                <a href="{% url 'notify' %}" class="dropdown-item text-center text-primary notify-item notify-all">
                     View All
                 </a>
 
@@ -138,11 +138,11 @@
          <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <i class="dripicons-mail noti-icon"></i>
-                {% if notifications %}
+                {% if notification %}
                     <span class="noti-icon-badge-mail"></span>
                 {% endif %}
             </a>
-            {% if notifications %}
+            {% if notification %}
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
 
                 <!-- item-->

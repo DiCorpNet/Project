@@ -5,20 +5,22 @@
 {% block title %}All Users{% endblock %}
 
 {% block content %}
-<div class="row row-cols-1 row-cols-md-2" data-plugin="dragula">
+<div class="row row-cols-1 row-cols-md-4" data-plugin="dragula">
 
 {% for user in object_list %}
     <div class="col">
-        <div class="bg-dragula p-2 p-lg-4">
+        <div class="bg-dragula p-2">
             <div id="company-list-left" class="py-2">
                 <div class="card mb-0 mt-2">
                     <div class="card-body">
                         <div class="d-flex align-items-start">
+                        <div class="isOnline me-3 {% if user.is_online %} online {% endif %}">
                             {% if user.images %}
-                                <img src="{{ user.images.url }}" alt="image" class="me-3 d-none d-sm-block avatar-sm rounded-circle">
+                                <img src="{{ user.images.url }}" alt="image" class=" d-none d-sm-block avatar-sm rounded-circle">
                             {% else %}
-                                <img src="{% static 'images/users/avatar-1.jpg' %}" alt="image" class="me-3 d-none d-sm-block avatar-sm rounded-circle">
+                                <img src="{% static 'images/users/avatar-1.jpg' %}" alt="image" class=" d-none d-sm-block avatar-sm rounded-circle">
                             {% endif %}
+                        </div>
                             <div class="w-100 overflow-hidden">
                                 <h5 class="mb-1 mt-0"><a href="{% url 'profile_user_get' user.username %}">{{ user.username }}</a></h5>
                                 <span class="badge {{ user.groups.first.name|lower }} rounded-pill p-1"> {{ user.groups.first }} </span>

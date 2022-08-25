@@ -1,5 +1,4 @@
 import uuid
-from datetime import timezone
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
@@ -7,6 +6,8 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.db import models
 from blog.fields import WEBPField
 from app.models import Country, Location
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -27,6 +28,7 @@ class MyUser(AbstractUser):
 
     def is_online(self):
         if self.last_online:
+            print((timezone.now() - self.last_online) < timezone.timedelta(minutes=15))
             return (timezone.now() - self.last_online) < timezone.timedelta(minutes=15)
         return False
 

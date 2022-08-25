@@ -40,7 +40,7 @@ class BlogDetail(DetailView, BreadcrumbMixinDetail, NotificationsMixinDetail):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['form_comment'] = CommentForm()
-        # get_info_bi_ip(ip=self.request.META.get('REMOTE_ADDR'))
+
         context['likes_user'] = context['article'].likes.filter(id=self.request.user.id).exists()
         context['files'] = Files.objects.filter(article=context['article'].id)
         context['comments'] = Comment.objects.filter(article_id=context['article'].id).prefetch_related('user', 'parent', "parent__user")

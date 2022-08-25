@@ -4,6 +4,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import  check_for_language
 from django.conf import settings
+from django.views.generic import ListView
+
+from api.models import Notifications
 
 
 def is_ajax(request):
@@ -45,4 +48,15 @@ def lang(request, lang_code):
             request.user.language = lang_code
             request.user.save(update_fields=['language'])
     return response
+
+
+class NotificationList(ListView):
+    model = Notifications
+
+    def get_queryset(self):
+        print(self.request.user)
+        result = Notifications.objects.all(self.request.user)
+        return result
+
+
 

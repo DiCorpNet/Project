@@ -36,9 +36,8 @@
                                             <div class="col-sm-8">
                                                 <div class="row align-items-center">
                                                     <div class="col-auto">
-                                                        <div class="avatar-lg">
-                                                            <img src="{{ profile.images|image }}" alt="" class="rounded-circle img-thumbnail">
-{#                                                            <img src="{% static 'images/users/avatar-2.jpg' %}" alt="" class="rounded-circle img-thumbnail">#}
+                                                        <div class="avatar-lg isOnline {% if profile.is_online %} online {% endif %}">
+                                                            <img src="{{ profile.images|image }}" alt="" class="rounded-circle img-thumbnail border-0">
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -70,6 +69,7 @@
                                                 </div>
                                             </div> <!-- end col-->
                                             {% endif %}
+                                        <div class="float-end text-light text-end">{{ profile.get_online_info }}</div>
                                         </div> <!-- end row -->
 
                                     </div> <!-- end card-body/ profile-user-box-->

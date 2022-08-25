@@ -39,6 +39,16 @@
     background: red;
 }
 
+.moderator{
+    background: #ffc203;
+}
+
+.participant{
+    background: #949494;
+}
+.verified{
+    background: #3478f8;
+}
 .search-to{
     padding: 15px;
     background: #000;
@@ -80,3 +90,26 @@
 .search-to .close-search i{
     vertical-align: middle;
 }
+
+.isOnline{
+    background: none;
+    border:4px solid gray;
+    padding: .15em;
+    position: relative;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+.online{
+    border-color: #05d067;
+    animation-name: blinker;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 2s;
+}
+@keyframes blinker {
+  50% {
+    border-color: white;
+  }
+}
+
+

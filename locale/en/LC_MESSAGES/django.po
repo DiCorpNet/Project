@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-07 19:17+0800\n"
+"POT-Creation-Date: 2022-08-25 03:49+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,110 +17,124 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\media\upload\article\u_1\email.html:5
+#: .\project\config\settings.py:182
+msgid "Russian"
+msgstr ""
+
+#: .\project\config\settings.py:183
+msgid "English"
+msgstr ""
+
+#: .\project\custom_user\models.py:39
+msgid "Last visit {0}"
+msgstr ""
+
+#: .\project\media\upload\article\u_1\email.html:5
 msgid "Account"
 msgstr "Аккаунт"
 
-#: .\media\upload\article\u_1\email.html:8
+#: .\project\media\upload\article\u_1\email.html:8
 msgid "E-mail Addresses"
 msgstr ""
 
-#: .\media\upload\article\u_1\email.html:10
+#: .\project\media\upload\article\u_1\email.html:10
 msgid "The following e-mail addresses are associated with your account:"
 msgstr ""
 
-#: .\media\upload\article\u_1\email.html:24
+#: .\project\media\upload\article\u_1\email.html:24
 msgid "Verified"
 msgstr ""
 
-#: .\media\upload\article\u_1\email.html:26
+#: .\project\media\upload\article\u_1\email.html:26
 msgid "Unverified"
 msgstr ""
 
-#: .\media\upload\article\u_1\email.html:28
+#: .\project\media\upload\article\u_1\email.html:28
 msgid "Primary"
 msgstr ""
 
-#: .\media\upload\article\u_1\email.html:34
+#: .\project\media\upload\article\u_1\email.html:34
 msgid "Make Primary"
 msgstr ""
 
-#: .\media\upload\article\u_1\email.html:35
+#: .\project\media\upload\article\u_1\email.html:35
 msgid "Re-send Verification"
 msgstr ""
 
-#: .\media\upload\article\u_1\email.html:36
+#: .\project\media\upload\article\u_1\email.html:36
 msgid "Remove"
 msgstr ""
 
-#: .\media\upload\article\u_1\email.html:43
+#: .\project\media\upload\article\u_1\email.html:43
 msgid "Warning:"
 msgstr ""
 
-#: .\media\upload\article\u_1\email.html:43
+#: .\project\media\upload\article\u_1\email.html:43
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
 
-#: .\media\upload\article\u_1\email.html:48
+#: .\project\media\upload\article\u_1\email.html:48
 msgid "Add E-mail Address"
 msgstr ""
 
-#: .\media\upload\article\u_1\email.html:53
+#: .\project\media\upload\article\u_1\email.html:53
 msgid "Add E-mail"
 msgstr ""
 
-#: .\media\upload\article\u_1\email.html:62
+#: .\project\media\upload\article\u_1\email.html:62
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr ""
 
-#: .\templates\account\account_inactive.html:5
-#: .\templates\account\account_inactive.html:8
+#: .\project\templates\account\account_inactive.html:5
+#: .\project\templates\account\account_inactive.html:8
 msgid "Аккаунт не активен"
 msgstr "Account is not active"
 
-#: .\templates\account\account_inactive.html:10
+#: .\project\templates\account\account_inactive.html:10
 msgid "Этот аккаунт не активен."
 msgstr "This account is not active."
 
-#: .\templates\account\email.html:5 .\templates\account\email.html:8
+#: .\project\templates\account\email.html:5
+#: .\project\templates\account\email.html:8
 msgid "Адресс электронной почты"
 msgstr "E-mail address"
 
-#: .\templates\account\email.html:10
+#: .\project\templates\account\email.html:10
 msgid "Следующие адреса электронной почты связаны с вашей учетной записью:"
 msgstr "The following email addresses are associated with your account:"
 
-#: .\templates\account\email.html:24
+#: .\project\templates\account\email.html:24
 msgid "Проверено"
 msgstr "Verified"
 
-#: .\templates\account\email.html:26
+#: .\project\templates\account\email.html:26
 msgid "Непроверенный"
 msgstr "Unverified"
 
-#: .\templates\account\email.html:28
+#: .\project\templates\account\email.html:28
 msgid "Первичный"
 msgstr "Primary"
 
-#: .\templates\account\email.html:34
+#: .\project\templates\account\email.html:34
 msgid "Сделать основным"
 msgstr "Set as primary"
 
-#: .\templates\account\email.html:35
+#: .\project\templates\account\email.html:35
 msgid "Отправить подтверждение"
 msgstr "Send confirmation"
 
-#: .\templates\account\email.html:36 .\templates\blog\article_detail.html:75
+#: .\project\templates\account\email.html:36
+#: .\project\templates\blog\article_detail.html:75
 msgid "Удалить"
 msgstr "Remove"
 
-#: .\templates\account\email.html:43
+#: .\project\templates\account\email.html:43
 msgid "Предупреждение:"
 msgstr "Warning:"
 
-#: .\templates\account\email.html:43
+#: .\project\templates\account\email.html:43
 msgid ""
 "В настоящее время у вас нет настроенного адреса электронной почты. Вам "
 "действительно следует добавить адрес электронной почты, чтобы вы могли "
@@ -129,23 +143,79 @@ msgstr ""
 "You do not currently have an email address configured. You really should add "
 "an email address so you can get notifications, reset your password, etc."
 
-#: .\templates\account\email.html:48
+#: .\project\templates\account\email.html:48
 msgid "Добавить адрес электронной почты"
 msgstr "Add an email address"
 
-#: .\templates\account\email.html:53
+#: .\project\templates\account\email.html:53
 msgid "Добавить E-mail"
 msgstr "Add Email"
 
-#: .\templates\account\email.html:63
+#: .\project\templates\account\email.html:63
 msgid "Вы действительно хотите удалить выбранный адрес электронной почты?"
 msgstr "Are you sure you want to delete the selected email address?"
 
-#: .\templates\account\email_confirm.html:6
+#: .\project\templates\account\email\base_message.txt:1
+#, python-format
+msgid "Hello from %(site_name)s!"
+msgstr ""
+
+#: .\project\templates\account\email\base_message.txt:5
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+
+#: .\project\templates\account\email\email_confirmation_message.txt:5
+#, python-format
+msgid ""
+"You're receiving this e-mail because user %(user_display)s has given your e-"
+"mail address to register an account on %(site_domain)s.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s"
+msgstr ""
+
+#: .\project\templates\account\email\email_confirmation_subject.txt:3
+msgid "Please Confirm Your E-mail Address"
+msgstr ""
+
+#: .\project\templates\account\email\password_reset_key_message.txt:4
+msgid ""
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password."
+msgstr ""
+
+#: .\project\templates\account\email\password_reset_key_message.txt:9
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr ""
+
+#: .\project\templates\account\email\password_reset_key_subject.txt:3
+#: .\project\templates\account\email\unknown_account_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr ""
+
+#: .\project\templates\account\email\unknown_account_message.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail because you or someone else has requested a\n"
+"password for your user account. However, we do not have any record of a "
+"user\n"
+"with email %(email)s in our database.\n"
+"\n"
+"This mail can be safely ignored if you did not request a password reset.\n"
+"\n"
+"If it was you, you can sign up for an account using the link below."
+msgstr ""
+
+#: .\project\templates\account\email_confirm.html:6
 msgid "Подтвердите адрес электронной почты"
 msgstr "Confirm email address"
 
-#: .\templates\account\email_confirm.html:28
+#: .\project\templates\account\email_confirm.html:28
 #, fuzzy, python-format
 #| msgid ""
 #| "Электронное письмо было отправлено на адрес <b><a href=\"mailto:%(email)s"
@@ -163,70 +233,118 @@ msgstr ""
 "Please check for an email from company and click on the included link to "
 "reset your password."
 
-#: .\templates\account\email_confirm.html:37
+#: .\project\templates\account\email_confirm.html:37
 msgid "Подтверждить"
 msgstr "Confirm"
 
-#: .\templates\account\login.html:3 .\templates\account\login.html:52
-#: .\templates\include\navbar-custom.html:221
+#: .\project\templates\account\login.html:3
+#: .\project\templates\account\login.html:52
+#: .\project\templates\include\navbar-custom.html:222
 msgid "Вход"
 msgstr "Login"
 
-#: .\templates\account\login.html:23
+#: .\project\templates\account\login.html:23
 msgid "Введите свой адрес электронной почты и пароль для входа."
 msgstr "Enter your email address and password to login."
 
-#: .\templates\account\login.html:29 .\templates\account\signup.html:37
+#: .\project\templates\account\login.html:29
+#: .\project\templates\account\signup.html:37
 msgid "Email адресс"
 msgstr "Email address"
 
-#: .\templates\account\login.html:34
+#: .\project\templates\account\login.html:34
 msgid "Забыли Ваш пароль?"
 msgstr "Forgot your password?"
 
-#: .\templates\account\login.html:47
+#: .\project\templates\account\login.html:47
 msgid "Запомнить меня"
 msgstr "Remember me"
 
-#: .\templates\account\login.html:62
+#: .\project\templates\account\login.html:62
 msgid "У вас нет аккаунта?"
 msgstr "Don't have an account?"
 
-#: .\templates\account\login.html:62
-#: .\templates\include\navbar-custom.html:225
+#: .\project\templates\account\login.html:62
+#: .\project\templates\include\navbar-custom.html:226
 msgid "Регистрация"
 msgstr "Sign In"
 
-#: .\templates\account\logout.html:5 .\templates\account\logout.html:8
-#: .\templates\account\logout.html:17
-#: .\templates\include\navbar-custom.html:214
+#: .\project\templates\account\logout.html:5
+#: .\project\templates\account\logout.html:8
+#: .\project\templates\account\logout.html:17
+#: .\project\templates\include\navbar-custom.html:215
 msgid "Выход"
 msgstr "Logout"
 
-#: .\templates\account\logout.html:10
+#: .\project\templates\account\logout.html:10
 msgid "Вы уверены, что хотите выйти?"
 msgstr "Are you sure you want to exit?"
 
-#: .\templates\account\password_change.html:5
-#: .\templates\account\password_change.html:8
-#: .\templates\account\password_change.html:13
-#: .\templates\account\password_reset_from_key.html:16
-#: .\templates\account\password_reset_from_key.html:49
+#: .\project\templates\account\messages\cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr ""
+
+#: .\project\templates\account\messages\email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr ""
+
+#: .\project\templates\account\messages\email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr ""
+
+#: .\project\templates\account\messages\email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr ""
+
+#: .\project\templates\account\messages\logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr ""
+
+#: .\project\templates\account\messages\logged_out.txt:2
+msgid "You have signed out."
+msgstr ""
+
+#: .\project\templates\account\messages\password_changed.txt:2
+msgid "Password successfully changed."
+msgstr ""
+
+#: .\project\templates\account\messages\password_set.txt:2
+msgid "Password successfully set."
+msgstr ""
+
+#: .\project\templates\account\messages\primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr ""
+
+#: .\project\templates\account\messages\unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr ""
+
+#: .\project\templates\account\password_change.html:5
+#: .\project\templates\account\password_change.html:8
+#: .\project\templates\account\password_change.html:13
+#: .\project\templates\account\password_reset_from_key.html:16
+#: .\project\templates\account\password_reset_from_key.html:49
 msgid "Сменить пароль"
 msgstr "Change password"
 
-#: .\templates\account\password_change.html:14
+#: .\project\templates\account\password_change.html:14
 msgid "Забыли пароль?"
 msgstr "Forgot your password?"
 
-#: .\templates\account\password_reset.html:6
-#: .\templates\account\password_reset.html:18
-#: .\templates\account\password_reset_done.html:6
-#: .\templates\account\password_reset_done.html:15
+#: .\project\templates\account\password_reset.html:6
+#: .\project\templates\account\password_reset.html:18
+#: .\project\templates\account\password_reset_done.html:6
+#: .\project\templates\account\password_reset_done.html:15
 msgid "Сброс пароля"
 msgstr "Password reset"
 
-#: .\templates\account\password_reset.html:36
+#: .\project\templates\account\password_reset.html:36
 msgid ""
 "Забыли свой пароль? Введите свой <strong>адрес электронной почты</strong> "
 "ниже, и мы отправим вам электронное письмо, позволяющее сбросить его."
@@ -234,18 +352,18 @@ msgstr ""
 "Forgot your password? Please enter your <strong>email address</strong> below "
 "and we'll send you an email allowing you to reset it."
 
-#: .\templates\account\password_reset.html:46
-#: .\templates\blog\article_detail.html:216
+#: .\project\templates\account\password_reset.html:46
+#: .\project\templates\blog\article_detail.html:216
 msgid "Отправить"
 msgstr "Send"
 
-#: .\templates\account\password_reset.html:50
+#: .\project\templates\account\password_reset.html:50
 msgid ""
 "Пожалуйста, свяжитесь с нами, если у вас возникнут проблемы со сбросом "
 "пароля."
 msgstr "Please contact us if you have any problems resetting your password."
 
-#: .\templates\account\password_reset_done.html:23
+#: .\project\templates\account\password_reset_done.html:23
 msgid ""
 "Мы отправили вам электронное письмо.Если вы не получили его, пожалуйста, "
 "проверьте папку со спамом.В противном случае свяжитесь с нами, если вы не "
@@ -254,11 +372,11 @@ msgstr ""
 "We've sent you an email. If you haven't received it, please check your spam "
 "folder. If not, please contact us if you are not get it in a few minutes."
 
-#: .\templates\account\password_reset_from_key.html:16
+#: .\project\templates\account\password_reset_from_key.html:16
 msgid "Проблемма с токеном"
 msgstr "Problem with token"
 
-#: .\templates\account\password_reset_from_key.html:22
+#: .\project\templates\account\password_reset_from_key.html:22
 #, python-format
 msgid ""
 "Ссылка для сброса пароля недействительна, возможно, потому, что она уже "
@@ -268,98 +386,99 @@ msgstr ""
 "The password reset link is invalid, possibly because it is already was used. "
 "Request <a href=\"%(passwd_reset_url)s\">reset new password.</a>."
 
-#: .\templates\account\password_reset_from_key.html:31
-#: .\templates\account\signup.html:42
+#: .\project\templates\account\password_reset_from_key.html:31
+#: .\project\templates\account\signup.html:42
 msgid "Пароль"
 msgstr "Password"
 
-#: .\templates\account\password_reset_from_key.html:38
+#: .\project\templates\account\password_reset_from_key.html:38
 msgid "Подтвердите пароли"
 msgstr "Confirm Password"
 
-#: .\templates\account\password_reset_from_key_done.html:4
-#: .\templates\account\password_reset_from_key_done.html:14
+#: .\project\templates\account\password_reset_from_key_done.html:4
+#: .\project\templates\account\password_reset_from_key_done.html:14
 #, fuzzy
 #| msgid "Сменить пароль"
 msgid "Сменить Пароль"
 msgstr "Change password"
 
-#: .\templates\account\password_reset_from_key_done.html:18
+#: .\project\templates\account\password_reset_from_key_done.html:18
 msgid "Теперь ваш пароль изменен."
 msgstr "Your password has now been changed."
 
-#: .\templates\account\password_set.html:5
-#: .\templates\account\password_set.html:8
+#: .\project\templates\account\password_set.html:5
+#: .\project\templates\account\password_set.html:8
 msgid "Установка пароля"
 msgstr "Setting a password"
 
-#: .\templates\account\password_set.html:13
+#: .\project\templates\account\password_set.html:13
 msgid "Установить пароль"
 msgstr "Set password"
 
-#: .\templates\account\signup.html:5 .\templates\account\signup.html:69
+#: .\project\templates\account\signup.html:5
+#: .\project\templates\account\signup.html:69
 msgid "Зарегистрироваться"
 msgstr "Register"
 
-#: .\templates\account\signup.html:23
+#: .\project\templates\account\signup.html:23
 msgid "Бесплатная регистрация"
 msgstr "Free registration"
 
-#: .\templates\account\signup.html:24
+#: .\project\templates\account\signup.html:24
 msgid "У вас нет аккаунта? Создайте свой аккаунт, это займет меньше минуты"
 msgstr ""
 "Don't have an account? Create your account, it will take less than a minute"
 
-#: .\templates\account\signup.html:32
+#: .\project\templates\account\signup.html:32
 msgid "Имя"
 msgstr "Full Name"
 
-#: .\templates\account\signup.html:52
+#: .\project\templates\account\signup.html:52
 msgid "Подтвердите пароль"
 msgstr "Confirm the password"
 
-#: .\templates\account\signup.html:64
+#: .\project\templates\account\signup.html:64
 msgid ""
 "Я созлашаюсь с <a href=\"#\" class=\"text-muted\"> Лицензионное соглашение"
 msgstr "I agree to the <a href=\"#\" class=\"text-muted\"> License Agreement"
 
-#: .\templates\account\signup.html:79
+#: .\project\templates\account\signup.html:79
 msgid "Уже есть аккаунт?"
 msgstr "Already have an account?"
 
-#: .\templates\account\signup.html:79
+#: .\project\templates\account\signup.html:79
 msgid "Войти"
 msgstr "Login"
 
-#: .\templates\account\signup_closed.html:5
-#: .\templates\account\signup_closed.html:8
+#: .\project\templates\account\signup_closed.html:5
+#: .\project\templates\account\signup_closed.html:8
 msgid "Регистрация недоступна"
 msgstr "Registration not available"
 
-#: .\templates\account\signup_closed.html:10
+#: .\project\templates\account\signup_closed.html:10
 msgid "Приносим свои извинения, но регистрация в настоящее время недоступна."
 msgstr "We're sorry, but registration is currently unavailable."
 
-#: .\templates\account\snippets\already_logged_in.html:5
+#: .\project\templates\account\snippets\already_logged_in.html:5
 msgid "Note"
 msgstr ""
 
-#: .\templates\account\snippets\already_logged_in.html:5
+#: .\project\templates\account\snippets\already_logged_in.html:5
 #, fuzzy, python-format
 msgid "вы уже вошли в систему как %%(user_display)s."
 msgstr "You are already logged in as %(user_display)s."
 
-#: .\templates\account\verification_sent.html:5
-#: .\templates\account\verified_email_required.html:5
-#: .\templates\account\verified_email_required.html:8
+#: .\project\templates\account\verification_sent.html:5
+#: .\project\templates\account\verified_email_required.html:5
+#: .\project\templates\account\verified_email_required.html:8
 msgid "Пожалуйста подтвердите ваш E-mail адресс"
 msgstr "Please confirm your email address"
 
-#: .\templates\account\verification_sent.html:24
+#: .\project\templates\account\verification_sent.html:24
 msgid "Пожалуйста, проверьте свою электронную почту"
 msgstr "Please check your email"
 
-#: .\templates\account\verification_sent.html:26
+#: .\project\templates\account\verification_sent.html:26
 msgid ""
 "Электронное письмо было отправлено на адрес. Пожалуйста, проверьте наличие "
 "электронного письма от компании и нажмите на прилагаемую ссылку, чтобы "
@@ -368,11 +487,11 @@ msgstr ""
 "A email has been sent to. Please check for an email from company and click "
 "on the included link to  reset your password."
 
-#: .\templates\account\verification_sent.html:32
+#: .\project\templates\account\verification_sent.html:32
 msgid "Вернуться на Главную"
 msgstr "Back to Home"
 
-#: .\templates\account\verified_email_required.html:12
+#: .\project\templates\account\verified_email_required.html:12
 #, fuzzy
 msgid ""
 "Эта часть сайта требует от нас подтверждения того, что\n"
@@ -382,7 +501,7 @@ msgstr ""
 "This part of the site requires us to confirm that  You are who you say you "
 "are. To do this, we require you  verify ownership of your email address."
 
-#: .\templates\account\verified_email_required.html:16
+#: .\project\templates\account\verified_email_required.html:16
 #, fuzzy
 msgid ""
 "Мы отправили вам электронное письмо для\n"
@@ -396,267 +515,316 @@ msgstr ""
 "spam folder. Otherwise  Contact us if you haven't received it within a few "
 "minutes."
 
-#: .\templates\account\verified_email_required.html:20
+#: .\project\templates\account\verified_email_required.html:20
 #, fuzzy, python-format
-msgid "<strong>Примечание.</strong> вы по-прежнему можете <a href=\"%(email_url)s\">изменить свой адрес электронной почты</a>."
-msgstr "<strong>Note.</strong> you can still <a href=\"%(email_url)s \">change your email address</a>."
+msgid ""
+"<strong>Примечание.</strong> вы по-прежнему можете <a href=\"%(email_url)s"
+"\">изменить свой адрес электронной почты</a>."
+msgstr ""
+"<strong>Note.</strong> you can still <a href=\"%(email_url)s \">change your "
+"email address</a>."
 
-#: .\templates\blog\article_detail.html:22
+#: .\project\templates\blog\article_detail.html:22
 #, fuzzy
 #| msgid "Популярные записи"
 msgid "Удаление записи!"
 msgstr "Popular entries"
 
-#: .\templates\blog\article_detail.html:23
+#: .\project\templates\blog\article_detail.html:23
 #, fuzzy
 #| msgid "Вы действительно хотите удалить выбранный адрес электронной почты?"
 msgid "Вы действительно хотите удалить запись"
 msgstr "Are you sure you want to delete the selected email address?"
 
-#: .\templates\blog\article_detail.html:26
+#: .\project\templates\blog\article_detail.html:26
 msgid "Нет"
 msgstr "No"
 
-#: .\templates\blog\article_detail.html:27
+#: .\project\templates\blog\article_detail.html:27
 msgid "Да"
 msgstr "Yes"
 
-#: .\templates\blog\article_detail.html:73
+#: .\project\templates\blog\article_detail.html:73
 #, fuzzy
 #| msgid "Редактировать профиль"
 msgid "Редактировать"
 msgstr "Edit profile"
 
-#: .\templates\blog\article_detail.html:126
+#: .\project\templates\blog\article_detail.html:126
 #, fuzzy
 #| msgid "Моих комментариев"
 msgid "Комментарии"
 msgstr "My comments"
 
-#: .\templates\blog\article_detail.html:167
-#, python-format
-msgid "<p class=\"text-center align-middle d-block\"><a href=\"%(login_in)s\">Войти</a> или <a href=\"%(sign_in)s\">Зарегистрироваться</a> для скачивания файлов.</p>"
-msgstr "<p class=\"text-center align-middle d-block\"><a href=\"%(login_in)s\">Login</a> или <a href=\"%(sign_in)s\">Sign Up</a> to download files.</p>"
+#: .\project\templates\blog\article_detail.html:167
+#, fuzzy, python-format
+#| msgid ""
+#| "<p class=\"text-center align-middle d-block\"><a href=\"%(login_in)s"
+#| "\">Войти</a> или <a href=\"%(sign_in)s\">Зарегистрироваться</a> для "
+#| "скачивания файлов.</p>"
+msgid ""
+"\n"
+"                                            <p class=\"text-center align-"
+"middle d-block\"><a href=\"%(login_in)s\">Войти</a> или <a href=\"%(sign_in)s"
+"\">Зарегистрироваться</a> для скачивания файлов.</p>\n"
+"                                            "
+msgstr ""
+"<p class=\"text-center align-middle d-block\"><a href=\"%(login_in)s"
+"\">Login</a> или <a href=\"%(sign_in)s\">Sign Up</a> to download files.</p>"
 
-
-#: .\templates\blog\article_detail.html:184
-#: .\templates\blog\article_detail.html:201
-#: .\templates\custom_user\profile-user.html:142
+#: .\project\templates\blog\article_detail.html:184
+#: .\project\templates\blog\article_detail.html:201
+#: .\project\templates\custom_user\profile-user.html:142
 msgid "Ответить"
 msgstr "Send"
 
-#: .\templates\blog\article_detail.html:194
+#: .\project\templates\blog\article_detail.html:194
 #, fuzzy
 #| msgid "Моих комментариев"
 msgid "Комментариев нет"
 msgstr "My comments"
 
-#: .\templates\blog\article_detail.html:223
-#, python-format
-msgid "Комментарии могут оставлять только зарегистрированные пользователи. Пожалуйста <a href=\"%(login_in)s\">Войти</a> или <a href=\"%(sign_in)s\">Зарегистрироваться</a>"
-msgstr "Comments can be posted only by registered users. Please <a href=\"%(login_in)s\">Login</a> или <a href=\"%(sign_in)s\">Sign Up</a> "
+#: .\project\templates\blog\article_detail.html:223
+#, fuzzy, python-format
+#| msgid ""
+#| "Комментарии могут оставлять только зарегистрированные пользователи. "
+#| "Пожалуйста <a href=\"%(login_in)s\">Войти</a> или <a href=\"%(sign_in)s"
+#| "\">Зарегистрироваться</a>"
+msgid ""
+"\n"
+"                                Комментарии могут оставлять только "
+"зарегистрированные пользователи. Пожалуйста <a\n"
+"                                    href=\"%(login_in)s\">Войти</a> или <a "
+"href=\"%(sign_in)s\">Зарегистрироваться</a>\n"
+"                                "
+msgstr ""
+"Comments can be posted only by registered users. Please <a href=\"%(login_in)"
+"s\">Login</a> или <a href=\"%(sign_in)s\">Sign Up</a> "
 
-#: .\templates\blog\article_detail.html:251
-#: .\templates\blog\create-post.html:124
+#: .\project\templates\blog\article_detail.html:251
 #, fuzzy
 #| msgid "Пароль"
-msgid "Файлы"
+msgid "ФайлЬы"
 msgstr "Files"
 
-#: .\templates\blog\article_detail.html:275
+#: .\project\templates\blog\article_detail.html:275
 msgid "Пользователь ограничил скачивание данного файла"
 msgstr "The user has restricted the download of this file"
 
-#: .\templates\blog\article_detail.html:280
-#, python-format
-msgid "<p>Скачивание доступно только зарегистрированным пользователям</p> <p class=\"text-center\"><a href=\"%(login_in)s\">Войти</a> или <a href=\"%(sign_in)s\">Зарегистрироватися</a></p>"
+#: .\project\templates\blog\article_detail.html:280
+#, fuzzy, python-format
+#| msgid ""
+#| "<p>Скачивание доступно только зарегистрированным пользователям</p> <p "
+#| "class=\"text-center\"><a href=\"%(login_in)s\">Войти</a> или <a href=\"%"
+#| "(sign_in)s\">Зарегистрироватися</a></p>"
+msgid ""
+"\n"
+"                                        <p>Скачивание доступно только "
+"зарегистрированным пользователям</p>\n"
+"                                        <p class=\"text-center\"><a href=\"%"
+"(login_in)s\">Войти</a> или <a href=\"%(sign_in)s\">Зарегистрироватися</a></"
+"p>\n"
+"                                        "
+msgstr ""
+"<p>Download is available only to registered users</p> <p class=\"text-center"
+"\"><a href=\"%(login_in)s\">Login</a> или <a href=\"%(sign_in)s\">Sign Up</"
+"a></p>"
 
-msgstr "<p>Download is available only to registered users</p> <p class=\"text-center\"><a href=\"%(login_in)s\">Login</a> или <a href=\"%(sign_in)s\">Sign Up</a></p>"
-
-#: .\templates\blog\create-post.html:20
+#: .\project\templates\blog\create-post.html:20
 #, fuzzy
 #| msgid "Популярные записи"
 msgid "Создание записи"
 msgstr "Popular entries"
 
-#: .\templates\blog\create-post.html:23
+#: .\project\templates\blog\create-post.html:23
 #, fuzzy
 #| msgid "Сменить пароль"
 msgid "Создать запись"
 msgstr "Change password"
 
-#: .\templates\blog\create-post.html:38
+#: .\project\templates\blog\create-post.html:38
 msgid "Заголовок"
 msgstr "Title"
 
-#: .\templates\blog\create-post.html:42
+#: .\project\templates\blog\create-post.html:42
 msgid "URL (заполняется автоматически)"
 msgstr "URL (filled in automatically)"
 
-#: .\templates\blog\create-post.html:46
+#: .\project\templates\blog\create-post.html:46
 #, fuzzy
 #| msgid "Регистрация"
 msgid "Категория"
 msgstr "Category"
 
-#: .\templates\blog\create-post.html:50
+#: .\project\templates\blog\create-post.html:50
 msgid "Демо текст"
 msgstr "Demo text"
 
-#: .\templates\blog\create-post.html:54
+#: .\project\templates\blog\create-post.html:54
 #, fuzzy
 #| msgid "Полное имя"
 msgid "Полный текс"
 msgstr "Full Name"
 
-#: .\templates\blog\create-post.html:64 .\templates\blog\create-post.html:86
+#: .\project\templates\blog\create-post.html:64
+#: .\project\templates\blog\create-post.html:86
 #, fuzzy
 #| msgid "Пожалуйста подтвердите ваш E-mail адресс"
 msgid "Пожалуйста загрузите фотографию"
 msgstr "Please confirm your email address"
 
-#: .\templates\blog\create-post.html:65 .\templates\blog\create-post.html:87
+#: .\project\templates\blog\create-post.html:65
+#: .\project\templates\blog\create-post.html:87
 msgid "Рекомендуемый размер 800x400 (px)."
 msgstr "Recommended Size"
 
-#: .\templates\blog\create-post.html:71 .\templates\blog\create-post.html:93
+#: .\project\templates\blog\create-post.html:71
+#: .\project\templates\blog\create-post.html:93
 msgid "Нажмите или перетащите файлы сюда."
 msgstr "Click or drag files here."
 
-#: .\templates\blog\create-post.html:104
+#: .\project\templates\blog\create-post.html:104
 #, fuzzy
 #| msgid "Отправить"
 msgid "Сохранить"
 msgstr "Send"
 
-#: .\templates\blog\create-post.html:116
+#: .\project\templates\blog\create-post.html:116
 #, fuzzy
 #| msgid "Сообщения"
 msgid "Контент"
 msgstr "Messages"
 
-#: .\templates\blog\create-post.html:120
+#: .\project\templates\blog\create-post.html:120
 msgid "Фотография"
 msgstr "Messages"
 
-#: .\templates\custom_user\profile-user-article.html:4
-#: .\templates\custom_user\profile-user-comments.html:4
-#: .\templates\custom_user\profile-user.html:4
+#: .\project\templates\blog\create-post.html:124
+#, fuzzy
+#| msgid "Пароль"
+msgid "Файлы"
+msgstr "Files"
+
+#: .\project\templates\custom_user\profile-user-article.html:4
+#: .\project\templates\custom_user\profile-user-comments.html:4
+#: .\project\templates\custom_user\profile-user.html:4
 msgid "Пользователь"
 msgstr "User"
 
-#: .\templates\custom_user\profile-user-article.html:25
-#: .\templates\custom_user\profile-user-article.html:28
-#: .\templates\custom_user\profile-user-comments.html:25
-#: .\templates\custom_user\profile-user-comments.html:28
-#: .\templates\custom_user\profile-user.html:19
-#: .\templates\custom_user\profile-user.html:23
+#: .\project\templates\custom_user\profile-user-article.html:25
+#: .\project\templates\custom_user\profile-user-article.html:28
+#: .\project\templates\custom_user\profile-user-comments.html:25
+#: .\project\templates\custom_user\profile-user-comments.html:28
+#: .\project\templates\custom_user\profile-user.html:19
+#: .\project\templates\custom_user\profile-user.html:23
 msgid "Профиль"
 msgstr "Profile"
 
-#: .\templates\custom_user\profile-user-article.html:73
-#: .\templates\custom_user\profile-user-comments.html:73
-#: .\templates\custom_user\profile-user.html:68
+#: .\project\templates\custom_user\profile-user-article.html:73
+#: .\project\templates\custom_user\profile-user-comments.html:73
+#: .\project\templates\custom_user\profile-user.html:67
 msgid "Редактировать профиль"
 msgstr "Edit profile"
 
-#: .\templates\custom_user\profile-user.html:18
-#: .\templates\include\left-sidebar.html:9 .\templates\index\index.html:4
+#: .\project\templates\custom_user\profile-user.html:18
+#: .\project\templates\include\left-sidebar.html:9
+#: .\project\templates\index\index.html:4
 msgid "Главная"
 msgstr "Home"
 
-#: .\templates\custom_user\profile-user.html:87
+#: .\project\templates\custom_user\profile-user.html:87
 msgid "Обо мне"
 msgstr "About Us"
 
-#: .\templates\custom_user\profile-user.html:92
+#: .\project\templates\custom_user\profile-user.html:92
 msgid "<strong>Извените - </strong> Нет информации о пользователе!"
 msgstr "<strong>Sorry - </strong> Not information user!"
 
-#: .\templates\custom_user\profile-user.html:100
+#: .\project\templates\custom_user\profile-user.html:100
 msgid "Полное имя"
 msgstr "Full Name"
 
-#: .\templates\custom_user\profile-user.html:104
+#: .\project\templates\custom_user\profile-user.html:104
 msgid "Страна"
 msgstr "Country"
 
-#: .\templates\custom_user\profile-user.html:106
+#: .\project\templates\custom_user\profile-user.html:106
 msgid "Язык"
 msgstr "Language"
 
-#: .\templates\custom_user\profile-user.html:109
+#: .\project\templates\custom_user\profile-user.html:109
 msgid "Ссылки"
 msgstr "Links"
 
-#: .\templates\custom_user\profile-user.html:134
+#: .\project\templates\custom_user\profile-user.html:134
+#: .\project\templates\include\navbar-custom.html:202
 msgid "Сообщения"
 msgstr "Messages"
 
-#: .\templates\custom_user\profile-user.html:172
+#: .\project\templates\custom_user\profile-user.html:172
 msgid "Моих записей"
 msgstr "My article"
 
-#: .\templates\custom_user\profile-user.html:183
+#: .\project\templates\custom_user\profile-user.html:183
 msgid "Моих комментариев"
 msgstr "My comments"
 
-#: .\templates\custom_user\profile-user.html:194
+#: .\project\templates\custom_user\profile-user.html:194
 msgid "Моих файлов"
 msgstr "My files"
 
-#: .\templates\custom_user\profile-user.html:207
+#: .\project\templates\custom_user\profile-user.html:207
 msgid "Мои проэкты"
 msgstr "My project"
 
-#: .\templates\include\navbar-custom.html:20
-#: .\templates\include\navbar-custom.html:32
+#: .\project\templates\include\navbar-custom.html:20
+#: .\project\templates\include\navbar-custom.html:32
 msgid "Русский"
 msgstr "Russian"
 
-#: .\templates\include\navbar-custom.html:25
-#: .\templates\include\navbar-custom.html:36
+#: .\project\templates\include\navbar-custom.html:25
+#: .\project\templates\include\navbar-custom.html:36
 msgid "Английский"
 msgstr "English"
 
-#: .\templates\include\navbar-custom.html:59
-#: .\templates\include\navbar-custom.html:153
+#: .\project\templates\include\navbar-custom.html:59
+#: .\project\templates\include\navbar-custom.html:153
 msgid "Удалить всё"
 msgstr "Remove All"
 
-#: .\templates\include\navbar-custom.html:198
+#: .\project\templates\include\navbar-custom.html:198
 msgid "Добро пожаловать"
 msgstr "Welcome"
 
-#: .\templates\include\navbar-custom.html:201
+#: .\project\templates\include\navbar-custom.html:201
 msgid "Мой аккаунт"
 msgstr "My account"
 
-#: .\templates\include\navbar-custom.html:204
+#: .\project\templates\include\navbar-custom.html:205
 #, fuzzy
 #| msgid "Добавить E-mail"
 msgid "Добавить запись"
 msgstr "Add Email"
 
-#: .\templates\include\navbar-custom.html:208
+#: .\project\templates\include\navbar-custom.html:209
 #, fuzzy
 #| msgid "Сменить пароль"
 msgid "Админпанель"
 msgstr "Change password"
 
-#: .\templates\include\navbar-custom.html:239
+#: .\project\templates\include\navbar-custom.html:240
 msgid "Поиск"
 msgstr "Search"
 
-#: .\templates\include\navbar-custom.html:251
+#: .\project\templates\include\navbar-custom.html:252
 msgid "Пользователи"
 msgstr "Users"
 
-#: .\templates\index\index.html:26
+#: .\project\templates\index\index.html:26
 msgid "Блог"
 msgstr "Blog"
 
-#: .\templates\index\index.html:78
+#: .\project\templates\index\index.html:78
 msgid "Популярные записи"
 msgstr "Popular entries"
 

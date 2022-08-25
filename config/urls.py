@@ -3,7 +3,8 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from app.views import lang
+from app.views import lang, NotificationList
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -17,6 +18,7 @@ urlpatterns = [
     path('pages/', include('django.contrib.flatpages.urls')),
     path('search/', include('search.urls')),
     path('message/', include('message.urls')),
+    path('notify/', NotificationList.as_view(), name='notify'),
 ]
 
 urlpatterns += i18n_patterns(

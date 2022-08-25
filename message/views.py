@@ -19,7 +19,6 @@ def index(request):
     if rooms:
         for room in rooms:
             der = MessageDialog.objects.filter(layer__layer=room.layer).order_by('-id').first()
-            print(der)
             if der:
                 mass = {'user': der.user, 'text': der.text }
             else:
