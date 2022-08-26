@@ -185,13 +185,15 @@
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                 aria-expanded="false">
-                <span class="account-user-avatar">
-                    <img src="{% static 'images/users/avatar-1.jpg' %}" alt="user-image" class="rounded-circle">
-                </span>
-                <span>
-                    <span class="account-user-name">{{ request.user.username }}</span>
-                    <span class="account-position">{{ request.user.group }}</span>
-                </span>
+                <div class="account-user-avatar me-1">
+                    <div class="isOnline">
+                        <img src="{% static 'images/users/avatar-1.jpg' %}" alt="user-image" class="rounded-circle">
+                    </div>
+                </div>
+                <div class="mx-2">
+                    <div class="account-user-name">{{ request.user.username }}</div>
+                    <div class="account-position">{{ request.user.group }}</div>
+                </div>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                 <!-- item-->

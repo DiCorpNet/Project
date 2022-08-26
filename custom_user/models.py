@@ -34,7 +34,7 @@ class MyUser(AbstractUser):
 
     def get_online_info(self):
         if self.is_online():
-            return 'Online'
+            return _('Онлайн')
         if self.last_online:
-            return _('Last visit {0}').format(naturaltime(self.last_online))
-        return 'Unknown'
+            return _('Последнее посещение {0}').format(naturaltime(self.last_online))
+        return _('Неизвестно')

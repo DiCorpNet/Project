@@ -35,7 +35,7 @@ class ProfileUserComments(ListView):
     template_name = 'custom_user/profile-user-comments.html'
 
     def get_queryset(self):
-        result = Comment.objects.filter(author_id__username=self.kwargs.get('user_slug')).ordef_by('-id')
+        result = Comment.objects.filter(user_id__username=self.kwargs.get('user_slug')).order_by('-id')
         return result
 
     def get_context_data(self, *, object_list=None, **kwargs):

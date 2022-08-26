@@ -54,7 +54,6 @@ class NotificationList(ListView):
     model = Notifications
 
     def get_queryset(self):
-        print(self.request.user)
         result = Notifications.objects.all(self.request.user)
         return result
 
