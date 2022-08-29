@@ -112,4 +112,10 @@
   }
 }
 
+.loader{
+    position: absolute;
+    background: white;
+    z-index: 9;
+}
+
 

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'channels',
     'message',
+    'bootstrap5',
     'django_cleanup.apps.CleanupConfig',
 ]
 

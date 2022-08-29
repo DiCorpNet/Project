@@ -133,8 +133,9 @@
                                 <div class="w-100">
                                     <h5 class="m-0">
                                         <span><a href="{% url 'profile_user_get' comment.user.username %}">{{ comment.user.username }}</a></span>
+                                        {{ comment.parent_id }}
                                         {% if comment.parent.id %}
-                                       <span><i class="mdi mdi-arrow-right-bold-outline"></i></span>
+                                        <span><i class="mdi mdi-arrow-right-bold-outline"></i></span>
                                         <span><a href="#comment-{{ comment.parent.id }}" class="text-muted">{{ comment.parent.user.username }}</a></span>
                                         {% endif %}
                                     </h5>

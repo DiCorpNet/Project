@@ -1,15 +1,20 @@
+import json
+
 import slug as slug
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.http import HttpResponseRedirect, Http404
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponseRedirect, Http404, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView, TemplateView
+from django.views.generic.base import ContextMixin
 from django.views.generic.edit import BaseDeleteView
 
 from .forms import CreateFormPost, FilesCreateForm, ArticleEditForm
@@ -22,10 +27,36 @@ from api.mixins import NotificationsMixinDetail, NotificationsMixinList, Breadcr
 
 from api.ipuser import get_info_bi_ip
 
+def get_paginated_page(request, objects, number=settings.PAGINATE):
+    current_page = Paginator(objects, number)
+
+    page = request.GET.get('page') if request.method == 'GET' else json.loads(request.body)['page']
+    try:
+        return current_page.page(page)
+    except PageNotAnInteger:
+        return current_page.page(1)
+    except EmptyPage:
+        return current_page.page(current_page.num_pages)
 
 
-class BlogList(ListView):
-    pass
+class BlogList(TemplateView, BreadcrumbMixinList):
+    template_name = 'blog/article_list.html'
+
+    def get(self, request):
+        breadcrumb = BreadcrumbMixinList.breadcrumb(self.request.get_full_path())
+        notifications = NotificationsMixinList.notifications(self.request.user)
+        return render(request=request, template_name=self.template_name, context={'article_list': get_paginated_page(request, Article.objects.all()), 'breadcrumbs': breadcrumb, 'notifications': notifications})
+
+    def post(self, request):
+        return JsonResponse({
+            "result": True,
+            "articles": render_to_string(
+                request=request,
+                template_name='blog/modules/article_previews_list.html',
+                context={'article_list': get_paginated_page(request, Article.objects.all())}
+            )
+            })
+
 
 
 class BlogDetail(DetailView, BreadcrumbMixinDetail, NotificationsMixinDetail):
@@ -40,24 +71,34 @@ class BlogDetail(DetailView, BreadcrumbMixinDetail, NotificationsMixinDetail):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['form_comment'] = CommentForm()
-
         context['likes_user'] = context['article'].likes.filter(id=self.request.user.id).exists()
         context['files'] = Files.objects.filter(article=context['article'].id)
         context['comments'] = Comment.objects.filter(article_id=context['article'].id).prefetch_related('user', 'parent', "parent__user")
         return context
 
 
-class BlogCategoryList(ListView, BreadcrumbMixinList, NotificationsMixinList):
-    model = Article
-    paginate_by = settings.PAGINATE
+class BlogCategoryList(View):
+    template_name = 'blog/article_list.html'
 
-    def get_queryset(self):
-        return Article.objects.filter(category__slug=self.kwargs.get('cat_slug')).select_related('category').prefetch_related('user', 'comments', 'bookmark_article').order_by('-id')
+    def get(self, request, cat_slug):
+        breadcrumb = BreadcrumbMixinList.breadcrumb(self.request.get_full_path())
+        notifications = NotificationsMixinList.notifications(self.request.user)
+        result = Article.objects.filter(category__slug=cat_slug).select_related('category').prefetch_related('user', 'comments', 'bookmark_article').order_by('-id')
+        return render(request=request, template_name=self.template_name,
+                      context={'article_list': get_paginated_page(request, result), 'breadcrumbs': breadcrumb, 'notifications': notifications })
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data()
-        context['title'] = Category.objects.get(slug=self.kwargs.get('cat_slug')).name
-        return context
+    def post(self, request, cat_slug):
+        result = Article.objects.filter(category__slug=cat_slug).select_related('category').prefetch_related('user', 'comments', 'bookmark_article').order_by('-id')
+        return JsonResponse({
+            "result": True,
+            "articles": render_to_string(
+                request=request,
+                template_name='blog/modules/article_previews_list.html',
+                context={'article_list': get_paginated_page(request, result), 'title': Category.objects.get(slug=cat_slug).name}
+            )
+            })
+
+
 
 
 class BlogCreatePost(PermissionRequiredMixin, View):

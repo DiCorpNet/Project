@@ -79,9 +79,6 @@ class BreadcrumbMixinDetail(views.generic.detail.SingleObjectMixin):
                         result.append(data)
                         i = i + 1
                     else:
-                        # if dicts.parent:
-                        #     data = {'title': dicts.parent.name, 'url': dicts.parent.get_absolute_url(), 'link': False}
-                        #     result.append(data)
                         data = {'title': dicts.name, 'url': dicts.get_absolute_url(), 'link': False}
                         result.append(data)
                         i = i + 1
