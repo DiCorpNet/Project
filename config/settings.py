@@ -33,12 +33,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'django.contrib.humanize',
     'allauth',
     'allauth.account',
     'mptt',
     'django_mptt_admin',
-    'api',
     'app',
+    'api',
     'index',
     'blog',
     'custom_user',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'channels',
     'message',
     'bootstrap5',
+    'notify',
     'django_cleanup.apps.CleanupConfig',
 ]
 
@@ -77,6 +79,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'app.category_processor.category',
+                'notify.context_processor.notifications',
+                # 'notify.context_processor.breadcrumb',
             ],
         },
     },
@@ -141,6 +145,7 @@ LANGUAGE_CODE = 'ru'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+USE_L10N = True
 
 USE_TZ = True
 
@@ -306,7 +311,7 @@ CKEDITOR_5_CONFIGS = {
     }
 }
 
-PAGINATE = 5
+PAGINATE = 10
 SITE_ID = 1
 
 try:

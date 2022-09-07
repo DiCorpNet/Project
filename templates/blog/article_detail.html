@@ -22,10 +22,10 @@
                     <h4 class="mt-2">{% trans 'Удаление записи!' %}</h4>
                     <p>{% trans 'Вы действительно хотите удалить запись' %} <strong>"{{ object }}"</strong>?</p>
                     <form action="{% url 'article-delete' article.slug %}" method="post">
-                    {% csrf_token %}
-                    <button type="button" class="btn btn-info me-2" data-bs-dismiss="modal"><i class="mdi mdi-close-thick"></i> {% trans 'Нет' %}</button>
-                    <button type="submit" class="btn btn-danger mx-2"><i class="mdi mdi-check-bold"></i> {% trans 'Да' %}</button>
-                </form>
+                        {% csrf_token %}
+                        <button type="button" class="btn btn-info me-2" data-bs-dismiss="modal"><i class="mdi mdi-close-thick"></i> {% trans 'Нет' %}</button>
+                        <button type="submit" class="btn btn-danger mx-2"><i class="mdi mdi-check-bold"></i> {% trans 'Да' %}</button>
+                    </form>
                 </div>
             </div>
 
@@ -65,16 +65,37 @@
         <div class="card d-block" style="color: black;">
             <div class="card-body">
                 <div class="dropdown float-end">
+                    {% if article.user == request.user or request.user.is_superuser %}
                     <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="dripicons-dots-3"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <a href="{% url 'article-edit' article.slug %}" class="dropdown-item"><i class="mdi mdi-pencil me-1"></i>{% trans 'Редактировать' %}</a>
-                        <!-- item-->
-                        <a data-bs-toggle="modal" data-bs-target="#delete-article" class="dropdown-item"><i class="mdi mdi-delete me-1"></i>{% trans 'Удалить' %}</a>
-                        <!-- item-->
+                        {% if article.readonly %}
+                            <!-- item-->
+                            {% if perms.blog.change_article %}
+                                <a href="{% url 'article-edit' article.slug %}" class="dropdown-item"><i class="mdi mdi-pencil me-1"></i>{% trans 'Редактировать' %}</a>
+                            {% endif %}
+                            <!-- item-->
+                            {% if perms.blog.delete_article %}
+                                <a data-bs-toggle="modal" data-bs-target="#delete-article" class="dropdown-item"><i class="mdi mdi-delete me-1"></i>{% trans 'Удалить' %}</a>
+                            {% else %}
+                                {% if article.user == request.user %}
+                                    <a data-bs-toggle="modal" data-bs-target="#delete-article" class="dropdown-item"><i class="mdi mdi-delete me-1"></i>{% trans 'Удалить' %}</a>
+                                {% endif %}
+                            {% endif %}
+
+                            <!-- item-->
+                        {% elif request.user.is_superuser %}
+                            <a href="{% url 'article-edit' article.slug %}" class="dropdown-item"><i class="mdi mdi-pencil me-1"></i>{% trans 'Редактировать' %}</a>
+                             <a href="{% url 'article-edit' article.slug %}" class="dropdown-item"><i class="mdi mdi-pencil me-1"></i>{% trans 'Добавить обновление' %}</a>
+                            <!-- item-->
+                            <a data-bs-toggle="modal" data-bs-target="#delete-article" class="dropdown-item"><i class="mdi mdi-delete me-1"></i>{% trans 'Удалить' %}</a>
+                        {% else %}
+                            <a href="{% url 'article-edit' article.slug %}" class="dropdown-item"><i class="mdi mdi-pencil me-1"></i>{% trans 'Добавить обновление' %}</a>
+                            <a data-bs-toggle="modal" data-bs-target="#delete-article" class="dropdown-item"><i class="mdi mdi-delete me-1"></i>{% trans 'Удалить' %}</a>
+                        {% endif %}
                     </div>
+                    {% endif %}
                 </div>
                 <!-- project title-->
                 <div class="row">
@@ -107,15 +128,39 @@
                     <small style="cursor: pointer;" class="text-muted p-1">
                         <i class="dripicons-message"></i> <span><a href="">{{ article.comments.count }}</a></span>
                     </small>
-                    <small style="cursor: pointer;" class="text-muted p-1 like" data-id="{{ article.id }}">
-                        <i class="mdi mdi-heart align-middle {% if article.likes.all|urer_true:request.user %} text-danger {% endif %}" ></i>
-                        <span>{{ article.likes_count }}</span>
-                    </small>
-                    <small style="cursor: pointer;" class="text-muted p-1" data-id="{{ article.id }}" data-action="bookmark" title="Избранное">
-                        <i class="dripicons-star {% if article.bookmark_article.all|user_in:request.user %}text-danger{% endif %}"></i>
-                        <span>{{ article.get_bookmark_count }}</span>
-                    </small>
+                    {% if request.user.is_authenticated %}
+                        <small style="cursor: pointer;" class="text-muted p-1 like" data-id="{{ article.id }}">
+                            <i class="mdi mdi-heart align-middle {% if article.likes.all|urer_true:request.user %} text-danger {% endif %}" ></i>
+                            <span>{{ article.likes_count }}</span>
+                        </small>
+                        <small style="cursor: pointer;" class="text-muted p-1" data-id="{{ article.id }}" data-action="bookmark" title="Избранное">
+                            <i class="dripicons-star {% if article.bookmark_article.all|user_in:request.user %}text-danger{% endif %}"></i>
+                            <span>{{ article.get_bookmark_count }}</span>
+                        </small>
+                {% endif %}
                 </div>
+                {% if article.update_articles.all %}
+                    <div class="col-12 mt-2">
+                        {% for item in article.update_articles.all %}
+                            <div class="alert alert-info">
+                                <div class="dropdown float-end">
+                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="dripicons-dots-3"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <!-- item-->
+                                        <a href="{% url 'article-edit' article.slug %}" class="dropdown-item"><i class="mdi mdi-pencil me-1"></i>{% trans 'Редактировать' %}</a>
+                                        <!-- item-->
+                                        <a data-bs-toggle="modal" data-bs-target="#delete-article" class="dropdown-item"><i class="mdi mdi-delete me-1"></i>{% trans 'Удалить' %}</a>
+                                        <!-- item-->
+                                    </div>
+                                </div>
+                                <strong>Обновление</strong> от {{ item.update_at|date:"d.m.Y" }} | Автор <a href="{{ item.user.get_absolute_url }}">{{ item.user.username }}</a>
+                            </div>
+                                {{ item.content|safe }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
 
             </div> <!-- end card-body-->
 
@@ -133,13 +178,12 @@
                                 <div class="w-100">
                                     <h5 class="m-0">
                                         <span><a href="{% url 'profile_user_get' comment.user.username %}">{{ comment.user.username }}</a></span>
-                                        {{ comment.parent_id }}
                                         {% if comment.parent.id %}
                                         <span><i class="mdi mdi-arrow-right-bold-outline"></i></span>
                                         <span><a href="#comment-{{ comment.parent.id }}" class="text-muted">{{ comment.parent.user.username }}</a></span>
                                         {% endif %}
                                     </h5>
-                                    <p class="text-muted mb-0"><small>2 mins ago</small></p>
+                                    <p class="text-muted mb-0"><small>{{ comment.create_at|timesince }}</small></p>
 
                                     <p class="my-1">{{ comment.content|safe }}</p>
 
@@ -154,7 +198,7 @@
                                                     </div>
                                                     <div class="col ps-0">
                                                         <a href="{{ comment.file.url }}" class="text-muted fw-bold" download="True">{{ comment.filename }}</a>
-                                                        <p class="mb-0">{{ comment.file.size|sizify }}</p>
+                                                        <p class="mb-0">{{ comment.file.size|filesizeformat }}</p>
                                                     </div>
                                                     <div class="col-auto">
                                                         <!-- Button -->
@@ -178,12 +222,18 @@
 
                                     {% if request.user.is_authenticated %}
                                     <div>
+                                        {% if perms.blog.can_like_system %}
                                         <a href="javascript: void(0);" class="btn btn-sm btn-link text-muted p-0 like-comment" data-id="{{ comment.id }}">
                                             <i class='uil uil-heart me-1'></i> Like <span>{{ comment.likes_count }}</span>
                                         </a>
+                                        {% else %}
+                                           <span class="text-muted p-0"> <i class='uil uil-heart me-1'></i> Like <span>{{ comment.likes_count }}</span></span>
+                                        {% endif %}
+                                        {% if perms.comment.add_comment or request.user == article.user %}
                                         <a href="#com" data-id="{{ comment.id }}" data-author="{{ comment.user.username }}" class="btn btn-sm btn-link text-muted p-0 ps-2 reply">
                                             <i class='uil uil-comments-alt me-1'></i> {% trans 'Ответить' %}
                                         </a>
+                                        {% endif %}
                                     </div>
                                     {% endif %}
                                 </div> <!-- end w-100 -->
@@ -199,26 +249,37 @@
 
                 <hr class="mt-3">
                 {% if request.user.is_authenticated %}
-                    <div id="auth" class="p-2" style="display: none;">{% trans 'Ответить' %} <strong></strong> <i id="closed-reply" class="uil uil-multiply" style="color:red; font-weight: bold; cursor: pointer; padding-left: 5px;"></i></div>
-                    <form action="{% url 'add_comment' article.id %}" method="post" id="com" enctype="multipart/form-data">
-                    {% csrf_token %}
-                        {{ form_comment.comment_area }}
-                        {{ form_comment.file }}
-                        <div class="text-end">
-                            <div class="btn-group mb-2 ">
-                                <div class="previev p-1" style="background: #f1f1f1; display: none;">
-                                    <span class="align-middle"></span> <i class="dripicons-cross text-danger" style="cursor: pointer;" id="clearComFile"></i>
+                    {% if perms.blog.add_comment or article.user == request.user %}
+                        <div id="auth" class="p-2" style="display: none;">{% trans 'Ответить' %} <strong></strong> <i id="closed-reply" class="uil uil-multiply" style="color:red; font-weight: bold; cursor: pointer; padding-left: 5px;"></i></div>
+                        <form action="{% url 'add_comment' article.id %}" method="post" id="com" enctype="multipart/form-data">
+                        {% csrf_token %}
+                            {{ form_comment.comment_area }}
+                            {{ form_comment.parent_comment }}
+                            {{ form_comment.file }}
+                            <div class="text-end">
+                                <div class="btn-group mb-2 ">
+                                    <div class="previev p-1" style="background: #f1f1f1; display: none;">
+                                        <span class="align-middle"></span> <i class="dripicons-cross text-danger" style="cursor: pointer;" id="clearComFile"></i>
+                                    </div>
+                                </div>
+                                <div class="btn-group mb-2">
+                                    <a class="btn btn-link btn-sm text-muted font-18" id="comfile"><i class="dripicons-paperclip"></i></a>
+                                </div>
+                                <div class="btn-group mb-2 ms-2">
+                                    <button type="submit" class="btn btn-primary btn-sm">{% trans 'Отправить' %}</button>
                                 </div>
                             </div>
-                            <div class="btn-group mb-2">
-                                <a class="btn btn-link btn-sm text-muted font-18" id="comfile"><i class="dripicons-paperclip"></i></a>
-                            </div>
-                            <div class="btn-group mb-2 ms-2">
-                                <button type="submit" class="btn btn-primary btn-sm">{% trans 'Отправить' %}</button>
+                        </form>
+                    {% else %}
+                        <div class="text-center">
+                            <div class="alert alert-success">
+                                {% blocktranslate with group=request.user.groups.all.0.name %}
+                                    Пользователи группы <strong>{{ group }}</strong> не могут комментировать запись
+                                {% endblocktranslate %}
                             </div>
                         </div>
-                    </form>
-                    {% else %}
+                   {% endif %}
+                {% else %}
                         <div class="text-center">
                             <div class="alert alert-success">
                                 {% blocktranslate %}
@@ -306,7 +367,5 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static 'highlight/highlight.min.js' %}"></script>
-    <script>hljs.highlightAll();</script>
     <script src="{% static 'js/comment.js' %}"></script>
 {% endblock %}

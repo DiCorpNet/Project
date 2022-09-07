@@ -1,6 +1,5 @@
 import json
 
-import slug as slug
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -13,8 +12,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView, TemplateView
-from django.views.generic.base import ContextMixin
+from django.views.generic import DetailView, UpdateView, TemplateView
 from django.views.generic.edit import BaseDeleteView
 
 from .forms import CreateFormPost, FilesCreateForm, ArticleEditForm
@@ -23,9 +21,7 @@ from app.models import Category
 
 from api.forms import CommentForm
 
-from api.mixins import NotificationsMixinDetail, NotificationsMixinList, BreadcrumbMixinList, BreadcrumbMixinDetail
-
-from api.ipuser import get_info_bi_ip
+from api.mixins import BreadcrumbMixinList, BreadcrumbMixinDetail
 
 def get_paginated_page(request, objects, number=settings.PAGINATE):
     current_page = Paginator(objects, number)
@@ -43,9 +39,7 @@ class BlogList(TemplateView, BreadcrumbMixinList):
     template_name = 'blog/article_list.html'
 
     def get(self, request):
-        breadcrumb = BreadcrumbMixinList.breadcrumb(self.request.get_full_path())
-        notifications = NotificationsMixinList.notifications(self.request.user)
-        return render(request=request, template_name=self.template_name, context={'article_list': get_paginated_page(request, Article.objects.all()), 'breadcrumbs': breadcrumb, 'notifications': notifications})
+        return render(request=request, template_name=self.template_name, context={'article_list': get_paginated_page(request, Article.objects.all())})
 
     def post(self, request):
         return JsonResponse({
@@ -59,7 +53,7 @@ class BlogList(TemplateView, BreadcrumbMixinList):
 
 
 
-class BlogDetail(DetailView, BreadcrumbMixinDetail, NotificationsMixinDetail):
+class BlogDetail(DetailView):
     model = Article
     slug_url_kwarg = 'article_slug'
 
@@ -81,11 +75,9 @@ class BlogCategoryList(View):
     template_name = 'blog/article_list.html'
 
     def get(self, request, cat_slug):
-        breadcrumb = BreadcrumbMixinList.breadcrumb(self.request.get_full_path())
-        notifications = NotificationsMixinList.notifications(self.request.user)
         result = Article.objects.filter(category__slug=cat_slug).select_related('category').prefetch_related('user', 'comments', 'bookmark_article').order_by('-id')
         return render(request=request, template_name=self.template_name,
-                      context={'article_list': get_paginated_page(request, result), 'breadcrumbs': breadcrumb, 'notifications': notifications })
+                      context={'article_list': get_paginated_page(request, result)})
 
     def post(self, request, cat_slug):
         result = Article.objects.filter(category__slug=cat_slug).select_related('category').prefetch_related('user', 'comments', 'bookmark_article').order_by('-id')
@@ -114,6 +106,7 @@ class BlogCreatePost(PermissionRequiredMixin, View):
         form = CreateFormPost(self.request.POST or None, self.request.FILES or None)
 
         if form.is_valid():
+            print('Valid')
             obj = form.save(commit=False)
             obj.user = self.request.user
             if self.request.user.is_superuser:
@@ -127,6 +120,7 @@ class BlogCreatePost(PermissionRequiredMixin, View):
                 if self.request.FILES.getlist('file'):
                     for f in self.request.FILES.getlist('files'):
                         Files.objects.create(article=obj, user=self.request.user, file=f)
+
 
             return HttpResponseRedirect(obj.get_absolute_url())
         else:

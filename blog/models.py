@@ -1,14 +1,13 @@
 import os
 import uuid
+from datetime import timedelta, datetime
+
 from django.conf import settings
-from django.contrib.postgres.indexes import GinIndex
 from django.db import models
 from django.db.models import Q
-from django.db.models.signals import post_save
 from mptt.fields import TreeForeignKey
 from app.models import Category
 from .fields import WEBPField
-from api.utils import comment_save
 from django_ckeditor_5.fields import CKEditor5Field
 
 
@@ -50,14 +49,15 @@ class Article(models.Model):
     TEMPLATE_PREVIEW = 'search/search-article.html'
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Author', related_name='articles')
-    title = models.CharField('Title', max_length=200)
-    description = models.TextField('Description', max_length=1000)
-    content = models.TextField('Full Content')
+    title = models.CharField('Title', max_length=1000)
+    content = CKEditor5Field('Full Content')
     category = TreeForeignKey(Category, on_delete=models.CASCADE , related_name='article_category')
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='blog_like', blank=True)
-    image = WEBPField(verbose_name='Article Image', upload_to=image_article)
-    slug = models.SlugField('Url adress', unique=True)
+    image = WEBPField(verbose_name='Article Image', upload_to=image_article, blank=True)
+    slug = models.SlugField('Url adress', unique=True, max_length=1000)
     create_at = models.DateTimeField(auto_now_add=True, verbose_name='Created Date')
+    last_update = models.DateTimeField(default=datetime.now() + timedelta(days=15))
+    is_new = models.DateTimeField(default=datetime.now() + timedelta(hours=1))
 
     objects = ArticleManager()
 
@@ -66,6 +66,7 @@ class Article(models.Model):
 
     class Meta:
         ordering = ['-id']
+        permissions = [('can_like_system', 'This LikeSystem')]
         # indexes = [GinIndex(fields=['title'])]
 
 
@@ -80,6 +81,18 @@ class Article(models.Model):
 
     def get_bookmark_count(self):
         return self.bookmark_article.all().count()
+
+    def deadline(self):
+        if self.is_new.timestamp() < datetime.now().timestamp():
+            return False
+        else:
+            return True
+
+    def readonly(self):
+        if self.last_update.timestamp() < datetime.now().timestamp():
+            return False
+        else:
+            return True
 
 
 
@@ -142,4 +155,27 @@ class Files(models.Model):
         return os.path.basename(self.file.name)
 
 
-post_save.connect(comment_save, sender=Comment)
+class UpdateArticleManager(models.Manager):
+
+    def get_queryset(self):
+        return super(UpdateArticleManager, self).get_queryset()
+
+    def all(self):
+        return self.get_queryset().filter(public=True)
+
+
+class UpdateArticle(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True)
+    update_article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='update_articles')
+    content = CKEditor5Field(config_name='extends')
+    update_at = models.DateTimeField(auto_now_add=True)
+    ia_read = models.DateTimeField(default=datetime.now() + timedelta(days=15))
+    public = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Обновление для \"{self.update_article.title}\" от пользователя \"{self.user.username}\""
+
+    objects = UpdateArticleManager()
+
+
+

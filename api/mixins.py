@@ -1,35 +1,6 @@
 from django import views
-
-from .models import Notifications
 from app.models import Category
 from blog.models import Article
-
-
-class NotificationsMixinDetail(views.generic.detail.SingleObjectMixin):
-
-    @staticmethod
-    def notifications(user):
-        if user.is_authenticated:
-            return Notifications.objects.all(user)
-        return Notifications.objects.none()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        context['notifications'] = self.notifications(self.request.user)
-        return context
-
-class NotificationsMixinList(views.generic.list.MultipleObjectMixin):
-
-    @staticmethod
-    def notifications(user):
-        if user.is_authenticated:
-            return Notifications.objects.all(user)
-        return Notifications.objects.none()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        context['notifications'] = self.notifications(self.request.user)
-        return context
 
 
 class BreadcrumbMixinList(views.generic.list.MultipleObjectMixin):

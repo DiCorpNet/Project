@@ -3,22 +3,23 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from app.views import lang, NotificationList
+from app.views import lang
 
+from notify.views import IndexNotify
 
 urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
     path('/accounts/', include('allauth.urls')),
     path('/profile/', include('custom_user.urls')),
     path('/', include('index.urls')),
     path('/blog/', include('blog.urls')),
-    path('i18n/', include('django.conf.urls.i18n')),
     path('api/', include('api.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('search/', include('search.urls')),
     path('message/', include('message.urls')),
-    path('notify/', NotificationList.as_view(), name='notify'),
+    path('notification/', IndexNotify.as_view(), name='notify'),
 ]
 
 urlpatterns += i18n_patterns(
@@ -27,6 +28,7 @@ urlpatterns += i18n_patterns(
     path('profile/', include('custom_user.urls')),
     path('blog/', include('blog.urls')),
     path('message/', include('message.urls')),
+    path('notification/', IndexNotify.as_view(), name='notify'),
 )
 
 urlpatterns += [

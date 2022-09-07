@@ -4,5 +4,5 @@ from .views import SearchList
 
 
 urlpatterns = [
-    re_path('^$', SearchList.as_view(), name='search' )
+    re_path('^$', SearchList.as_view(), name='search')
 ]

@@ -2,6 +2,7 @@
 {% load imagepost_tags image_tags  extra_tags static i18n sizify %}
 {% block style %}
    <link rel="stylesheet" href="{% static 'highlight/styles/agate.min.css' %}">
+{{ form.media }}
 {% endblock %}
 
 {% block title %}
@@ -26,7 +27,16 @@
         </div>
 
         <div class="row">
-
+            {% if form.errors %}
+              <ul>
+                {% for key,value in form.errors.items %}
+                  <li>{{ key|escape }} : {{ value|escape }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            {% for error in form.non_field_errors %}
+            <div class="alert alert-danger text-center">Errors</div>
+            {% endfor %}
 
             <div class="col-sm-9 card card-body">
                 <form action="{% url 'create-post' %}" method="post" enctype="multipart/form-data">
@@ -47,12 +57,9 @@
                                     {{ form.category }}
                                 </div>
                                 <div class="col-12 mt-3 mb-3">
-                                    <label for="id_description" class="form-label">{%  trans 'Демо текст' %}</label>
-                                    {{ form.description }}
-                                </div>
-                                <div class="col-12 mt-3 mb-3">
                                     <label for="id_content" class="form-label">{%  trans 'Полный текс' %}</label>
                                     {{ form.content }}
+                                    {{ form.content.error}}
                                 </div>
                             </div>
                         </div>
@@ -133,7 +140,6 @@
 
 {% block javascript %}
     <script src="{% static 'js/select2.min.js' %}"></script>
-    {{ form.media }}
     <script>
     $(document).ready(function() {
             $('#id_category').select2();
@@ -154,7 +160,7 @@
                                                     '</div>'+
                                                     '<div class="col-auto">'+
                                                         <!-- Button -->
-                                                        '<a href="" class="btn btn-link btn-lg text-muted">'+
+                                                        '<a href="" class="btn btn-link btn-lg text-muted" id="d-remove">'+
                                                             '<i class="dripicons-cross"></i>'+
                                                         '</a>'+
                                                     '</div>'+
@@ -180,7 +186,7 @@
                                                     '</div>'+
                                                     '<div class="col-auto">'+
                                                         <!-- Button -->
-                                                        '<a href="" class="btn btn-link btn-lg text-muted">'+
+                                                        '<a href="" class="btn btn-link btn-lg text-muted" id="d-remove">'+
                                                             '<i class="dripicons-cross"></i>'+
                                                         '</a>'+
                                                     '</div>'+
@@ -265,6 +271,15 @@
                             .replace(/[^A-Za-z0-9 _.]/g, '')
                             .replace(/[ _\.]+/g, '-')
                             .replace(/^-|-$/gm, '');
-            }
+            };
+
+     $('#id_save').on('click', function(e){
+        console.log($('.ck_editor'))
+     })
+
+     $('#d-remove').on('click', function(e){
+        e.preventDefault()
+        alert('Remove')
+     })
     </script>
 {% endblock %}

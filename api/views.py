@@ -1,28 +1,20 @@
 import json
-from itertools import chain
-
-from django.core import serializers
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse,  JsonResponse
+from django.shortcuts import redirect, get_object_or_404
 
 from django.views import View
 
 from .forms import CommentForm
 from blog.models import Article
 from blog.models import Comment, BookmarkArticles
+from django.templatetags.static import static
 
 class BookmarkView(View):
-    # в данную переменную будет устанавливаться модель закладок, которую необходимо обработать
     model = None
 
     def post(self, request, pk):
-
-        # нам потребуется пользователь
         user = request.user
-        # пытаемся получить закладку из таблицы, или создать новую
         bookmark, created = self.model.objects.get_or_create(user=user, obj_id=pk)
-        # если не была создана новая закладка,
-        # то считаем, что запрос был на удаление закладки
         if not created:
             bookmark.delete()
 
@@ -86,13 +78,14 @@ def Bookmark(request, pk):
     result = {'count': BookmarkArticles.objects.filter(obj_id=pk).count(), 'status': status}
     return JsonResponse(result, safe=False)
 
+
 def ApiSearch(request):
     search = request.GET.get('search')
     query_search = list()
     if search:
         array = Article.objects.search(query=search).only('title', 'image')
         for item in array:
-            result = {'image': item.image.url, 'title': item.title, 'slug':item.get_absolute_url() }
+            result = {'image': image(item.image), 'title': item.title, 'slug':item.get_absolute_url() }
             query_search.append(result)
 
     # if search:
@@ -111,3 +104,9 @@ def ApiSearch(request):
     #     result = serializers.serialize('json', final_set)
 
     return JsonResponse(query_search, safe=False)
+
+
+def image(image):
+    if not image:
+        return static('images/small/small-3.jpg')
+    return image.url

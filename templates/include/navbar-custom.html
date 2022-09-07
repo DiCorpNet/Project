@@ -1,4 +1,4 @@
-{% load static i18n %}
+{% load static i18n image_tags humanize %}
 {% load get_current_language from i18n %}
 {% get_current_language as LANGUAGE_CODE %}
 <div class="navbar-custom">
@@ -65,7 +65,7 @@
                 <div style="max-height: 230px;" data-simplebar>
                     {% for notifi in notifications %}
                     <!-- item-->
-                    <a href="{{ notifi.url_to }}" class="dropdown-item notify-item">
+                    <a href="{{ notifi.url }}" class="dropdown-item notify-item">
                         <div class="notify-icon bg-primary">
                             <i class="mdi mdi-comment-account-outline"></i>
                         </div>
@@ -128,19 +128,19 @@
                 </div>
 
                 <!-- All-->
-                <a href="{% url 'notify' %}" class="dropdown-item text-center text-primary notify-item notify-all">
+                <a href=" {% url 'notify' %}" class="dropdown-item text-center text-primary notify-item notify-all">
                     View All
                 </a>
 
             </div>
             {% endif %}
         </li>
+            <!-- MESSAGE -->
+            {% if perms.message.message_access %}
          <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <i class="dripicons-mail noti-icon"></i>
-                {% if notification %}
                     <span class="noti-icon-badge-mail"></span>
-                {% endif %}
             </a>
             {% if notification %}
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
@@ -159,12 +159,12 @@
                 <div style="max-height: 230px;" data-simplebar>
                     {% for notifi in notifications %}
                     <!-- item-->
-                    <a href="{{ notifi.url_to }}" class="dropdown-item notify-item">
+                    <a href="{{ notifi.url }}" class="dropdown-item notify-item">
                         <div class="notify-icon bg-primary">
                             <i class="mdi mdi-comment-account-outline"></i>
                         </div>
                         <p class="notify-details">{{ notifi.text|safe }}
-                            <small class="text-muted">1 min ago</small>
+                            <small class="text-muted">{{ notify.create_at|naturaltime }}</small>
                         </p>
                     </a>
                     {% endfor %}
@@ -178,6 +178,7 @@
             </div>
             {% endif %}
         </li>
+        {% endif %}
 
 
 
@@ -187,11 +188,11 @@
                 aria-expanded="false">
                 <div class="account-user-avatar me-1">
                     <div class="isOnline">
-                        <img src="{% static 'images/users/avatar-1.jpg' %}" alt="user-image" class="rounded-circle">
+                        <img src="{{ request.user.image|image }}" alt="user-image" class="rounded-circle">
                     </div>
                 </div>
                 <div class="mx-2">
-                    <div class="account-user-name">{{ request.user.username }}</div>
+                    <div class="account-user-name" style="margin-top:13px;">{{ request.user.username }}</div>
                     <div class="account-position">{{ request.user.group }}</div>
                 </div>
             </a>
@@ -201,14 +202,17 @@
 
                 <!-- item-->
                 <a href="{% url 'profile_user_get' request.user.username %}" class="dropdown-item notify-item"><i class="mdi mdi-account-circle me-1"></i><span>{% trans 'Мой аккаунт' %}</span></a>
+
+                {% if perms.message.message_access %}
                 <a href="{% url 'chat_home' %}" class="dropdown-item notify-item"><i class="mdi mdi-mail me-1"></i><span>{% trans 'Сообщения' %}</span></a>
-
+                {% endif %}
                 <!-- item-->
-                <a href="{% url 'create-post' %}" class="dropdown-item notify-item"><i class="mdi mdi-file-document-outline me-1"></i><span>{% trans 'Добавить запись' %}</span></a>
-
+                {% if perms.blog.add_article %}
+                    <a href="{% url 'create-post' %}" class="dropdown-item notify-item"><i class="mdi mdi-file-document-outline me-1"></i><span>{% trans 'Добавить запись' %}</span></a>
+                {% endif %}
                 <!-- item-->
                 {% if request.user.is_authenticated and request.user.is_staff %}
-                    <a href="/admin/" class="dropdown-item notify-item"><i class="mdi mdi-lock-outline me-1"></i><span>{% trans 'Админпанель' %}</span></a>
+                    <a href="/admin/" class="dropdown-item notify-item" target="_blank"><i class="mdi mdi-lock-outline me-1"></i><span>{% trans 'Админпанель' %}</span></a>
                 {% endif %}
 
                 <!-- item-->

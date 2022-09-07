@@ -15,7 +15,7 @@
 <ul class="side-nav">
     {% recursetree category_list %}
         {% if node.is_root_node %}
-        <li class="side-nav-title side-nav-item"> <strong>{{ node.name }}</strong></li>
+        <li class="side-nav-title side-nav-item"><a href=""><strong>{{ node.name }}</strong></a></li>
         {% endif %}
         {% if not node.is_root_node %}
             {% if not  node.is_leaf_node and node.get_descendant_count != 0 %}

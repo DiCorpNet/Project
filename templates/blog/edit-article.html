@@ -54,28 +54,28 @@
                                 </div>
                             </div>
                         </div>
-{#                        <div class="tab-pane fade" id="v-pills-profile2" role="tabpanel" aria-labelledby="v-pills-profile-tab2">#}
-{#                            <p class="mb-0">#}
-{#                                <div class="row">#}
-{#                                    <div class="col-xl-12">#}
-{#                                        <div class="mb-3 mt-3 mt-xl-0">#}
-{#                                            <h5>Пожалуйста загрузите фотографию</h5>#}
-{#                                            <p class="text-muted font-14">Recommended thumbnail size 800x400 (px).</p>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                <div class="col-12 mt-3 mb-3">#}
-{#                                        <label for="id_image" class="form-label p-4 w-100 h-100 text-center align-middle" style="border:2px dashed #dee2e6;">#}
-{#                                            <i class="fas fa-cloud-upload-alt " style="font-size: 40px;"></i>#}
-{#                                            <h4>Drop files here or click to upload. </h4>#}
-{#                                        </label>#}
-{#                                    <input type="file" id="id_image" name="image" accept="image/*" hidden>#}
-{#                                </div>#}
-{#                                <div class="col-12">#}
-{#                                    <div class="d-none" id="preview-image"></div>#}
-{#                                </div>#}
-{#                                </div>#}
-{#                            </p>#}
-{#                        </div>#}
+                        <div class="tab-pane fade" id="v-pills-profile2" role="tabpanel" aria-labelledby="v-pills-profile-tab2">
+                            <p class="mb-0">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="mb-3 mt-3 mt-xl-0">
+                                            <h5>Пожалуйста загрузите фотографию</h5>
+                                            <p class="text-muted font-14">Recommended thumbnail size 800x400 (px).</p>
+                                        </div>
+                                    </div>
+                                <div class="col-12 mt-3 mb-3">
+                                        <label for="id_image" class="form-label p-4 w-100 h-100 text-center align-middle" style="border:2px dashed #dee2e6;">
+                                            <i class="fas fa-cloud-upload-alt " style="font-size: 40px;"></i>
+                                            <h4>Drop files here or click to upload. </h4>
+                                        </label>
+                                    <input type="file" id="id_image" name="image" accept="image/*" hidden>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-none" id="preview-image"></div>
+                                </div>
+                                </div>
+                            </p>
+                        </div>
 {#                        <div class="tab-pane fade" id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings-tab2">#}
 {#                            <p class="mb-0">#}
 {#                                <div class="row">#}
@@ -139,5 +139,30 @@
     $(document).ready(function() {
             $('#id_category').select2();
         });
+
+    $('#id_image').on('change', function(e){
+            let img_data = document.getElementById('id_image').files[0];
+            let inpu = URL.createObjectURL(img_data)
+            document.getElementById('preview-image').innerHTML = '<div class="card mt-1 mb-0 shadow-none border">'+
+                                            '<div class="p-2">'+
+                                                '<div class="row align-items-center">'+
+                                                    '<div class="col-auto">'+
+                                                        '<img src="'+inpu+'" class="avatar-sm rounded bg-light" alt="">'+
+                                                    '</div>'+
+                                                    '<div class="col ps-0">'+
+                                                        '<a href="" class="text-muted fw-bold">'+ img_data.name +'</a>'+
+                                                        '<p class="mb-0"></p>'+
+                                                    '</div>'+
+                                                    '<div class="col-auto">'+
+                                                        <!-- Button -->
+                                                        '<a href="" class="btn btn-link btn-lg text-muted">'+
+                                                            '<i class="dripicons-cross"></i>'+
+                                                        '</a>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'
+            $('#preview-image').removeClass('d-none')
+    })
     </script>
 {% endblock  %}

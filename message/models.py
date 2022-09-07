@@ -22,3 +22,6 @@ class MessageDialog(models.Model):
 
     def __str__(self) -> str:
         return self.text
+
+    class Meta:
+        permissions = [('message_access', 'Access message')]

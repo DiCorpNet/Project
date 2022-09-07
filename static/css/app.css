@@ -9732,7 +9732,7 @@ body {
   .side-nav .side-nav-title {
     padding: 12px 30px;
     letter-spacing: .05em;
-    pointer-events: none;
+    /*pointer-events: none;*/
     cursor: default;
     font-size: 0.6875rem;
     text-transform: uppercase;

@@ -38,3 +38,6 @@ class MyUser(AbstractUser):
         if self.last_online:
             return _('Последнее посещение {0}').format(naturaltime(self.last_online))
         return _('Неизвестно')
+
+    def get_absolute_url(self):
+        return f'/profile/{self.username}/'

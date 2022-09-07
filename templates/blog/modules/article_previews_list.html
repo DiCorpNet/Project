@@ -1,37 +1,40 @@
 {% load static imagepost_tags extra_tags i18n bootstrap5 %}
 
 {% for article in article_list %}
-<div class="col-lg-12">
-            <div class="card">
+<div class="col-lg-12" style="position: relative">
+            <div class="c-cat c-{{ article.category.name|lower }}"><a href="{{ article.category.get_absolute_url }}">{{ article.category.name }}</a></div>
+            <div class="card ribbon-box">
                 <div class="row g-0 align-items-center">
+                {% if article.deadline %}
+                    <div class="ribbon-two ribbon-two-danger"><span><strong>NEW</strong></span></div>
+                {% endif %}
                     <div class="col-md-4">
                         <img src="{{ article.image|image_post }}" class="card-img article-img" alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h5>
-                            <p class="card-text">{{ article.description|safe }}</p>
+                            <p class="card-text">{{ article.content|truncatewords_html:"30"|safe }}</p>
                             <p class="card-text">
                                 <small style="cursor: pointer;" class="text-muted p-1">
-                                                    <i class="uil uil-user"></i> <span><a href="{% url 'profile_user_get' article.user.username %}">{{ article.user.username }}</a></span>
-                                                </small>
-                                                <small class="nav-item">
-                                                    <i class="uil uil-calendar-alt"></i>  <span>{{ article.create_at }}</span>
-                                                </small>
-                                                <small style="cursor: pointer;" class="text-muted p-1">
-                                                    <i class="dripicons-view-apps"></i> <span><a href="{{ article.category.get_absolute_url }}">{{ article.category.name }}</a></span>
-                                                </small>
-                                                <small style="cursor: pointer;" class="text-muted p-1">
-                                                    <i class="dripicons-message"></i> <span><a href="">{{ article.comments.count }}</a></span>
-                                                </small>
-                                                <small style="cursor: pointer;" class="nav-item like" data-id="{{ article.id }}">
-                                                    <i class="mdi mdi-heart align-middle {% if article.likes_user %} text-danger {% endif %}" ></i>
-                                                    <span>{{ article.likes_count }}</span>
-                                                </small>
-                                                <small style="cursor: pointer;" class="text-muted p-1" data-id="{{ article.id }}" data-type="article" data-action="bookmark" title="Избранное">
-                                                    <i class="dripicons-star {% if article.bookmark_article.all|user_in:request.user %}text-danger{% endif %}"></i>
-                                                    <span data-count="bookmark">{{ article.get_bookmark_count }}</span>
-                                                </small>
+                                    <i class="uil uil-user"></i> <span><a href="{% url 'profile_user_get' article.user.username %}">{{ article.user.username }}</a></span>
+                                </small>
+                                <small class="nav-item">
+                                    <i class="uil uil-calendar-alt"></i>  <span>{{ article.create_at|date }}</span>
+                                </small>
+                                <small style="cursor: pointer;" class="text-muted p-1">
+                                    <i class="dripicons-message"></i> <span><a href="">{{ article.comments.count }}</a></span>
+                                </small>
+                            {% if request.user.is_authenticated %}
+                                <small style="cursor: pointer;" class="nav-item like" data-id="{{ article.id }}">
+                                    <i class="mdi mdi-heart align-middle {% if article.likes_user %} text-danger {% endif %}" ></i>
+                                    <span>{{ article.likes_count }}</span>
+                                </small>
+                                <small style="cursor: pointer;" class="text-muted p-1" data-id="{{ article.id }}" data-type="article" data-action="bookmark" title="Избранное">
+                                    <i class="dripicons-star {% if article.bookmark_article.all|user_in:request.user %}text-danger{% endif %}"></i>
+                                    <span data-count="bookmark">{{ article.get_bookmark_count }}</span>
+                                </small>
+                            {% endif %}
                             </p>
                         </div> <!-- end card-body-->
                     </div> <!-- end col -->
@@ -39,5 +42,6 @@
             </div> <!-- end card-->
         </div> <!-- end col-->
 {% endfor %}
-
+{% if article_list.has_other_pages %}
 {% bootstrap_pagination article_list justify_content="center" %}
+{% endif %}

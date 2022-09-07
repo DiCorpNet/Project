@@ -4,7 +4,7 @@ from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
 
 from .forms import AdminBlogForm
-from .models import Article, Files, Comment
+from .models import Article, Files, Comment, UpdateArticle
 
 
 class ArticleAdmin(TranslationAdmin):
@@ -13,3 +13,4 @@ class ArticleAdmin(TranslationAdmin):
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Files)
 admin.site.register(Comment)
+admin.site.register(UpdateArticle)
