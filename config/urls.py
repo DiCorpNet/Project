@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.flatpages import views
 from django.urls import path, include
 from app.views import lang
 
@@ -16,11 +17,14 @@ urlpatterns = [
     path('/blog/', include('blog.urls')),
     path('api/', include('api.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
-    path('pages/', include('django.contrib.flatpages.urls')),
     path('search/', include('search.urls')),
     path('message/', include('message.urls')),
     path('notification/', IndexNotify.as_view(), name='notify'),
+    path('about-us/', views.flatpage, {'url': '/about-us/'}, name='about'),
+    path('license/', views.flatpage, {'url': '/license/'}, name='license'),
 ]
+
+
 
 urlpatterns += i18n_patterns(
     path('', include('index.urls')),
@@ -29,6 +33,8 @@ urlpatterns += i18n_patterns(
     path('blog/', include('blog.urls')),
     path('message/', include('message.urls')),
     path('notification/', IndexNotify.as_view(), name='notify'),
+    path('about-us/', views.flatpage, {'url': '/about-us/'}, name='about'),
+    path('license/', views.flatpage, {'url': '/license/'}, name='license'),
 )
 
 urlpatterns += [

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+             <h1 class="mt-3 mb-3 text-center">Licensed</h1>
+            <div data-simplebar data-simplebar-primary style="height: 65vh; border:3px solid #313a46; border-radius:5px; padding: 15px;">
+                {{ flatpage.content }}
+            </div>
+            </div>
+            <div class="text-muted mt-3">*Click to button Confirm. You are confirm me licensed</div>
+            <div class="col-12 mt-4 mb-4 text-center">
+                <div class="btn btn-info">Confirm</div>
+                <div class="btn btn-danger">No</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

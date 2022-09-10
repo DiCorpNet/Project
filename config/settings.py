@@ -23,6 +23,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '127.0.0.1:8000',]
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.humanize',
     'debug_toolbar',
     'modeltranslation',
     'django.contrib.admin',
@@ -33,7 +34,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'django.contrib.humanize',
     'allauth',
     'allauth.account',
     'mptt',
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'message',
     'bootstrap5',
     'notify',
+    'flatpage',
     'django_cleanup.apps.CleanupConfig',
 ]
 
@@ -249,12 +250,9 @@ customColorPalette = [
 # CKEDITOR_5_FILE_STORAGE = "path_to_storage.CustomStorage" # optional
 CKEDITOR_5_CONFIGS = {
     'default': {
-        'toolbar': ['heading', '|', 'bold', 'italic', 'link',
+        'toolbar': ['heading', '|', 'bold', 'italic', 'link', 'alignment',
                     'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
 
-    },
-    'comment':{
-        'toolbar' : ['bold','link', 'codeBlock' ]
     },
     'extends': {
         'blockToolbar': [
@@ -262,16 +260,16 @@ CKEDITOR_5_CONFIGS = {
             '|',
             'bulletedList', 'numberedList',
             '|',
-            'blockQuote', 'imageUpload'
+            'blockQuote',
         ],
-        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
-        'code','subscript', 'superscript', 'highlight', '|', 'codeBlock',
+        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough', 'alignment',
+        'code','subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
                     'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', '|',
-                    'fontSize',  'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                    'insertTable', 'sourceEditing', ],
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
+                    'insertTable',],
         'image': {
             'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
-                        'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side',  '|' ],
+                        'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side',  '|'],
             'styles': [
                 'full',
                 'side',
@@ -300,6 +298,9 @@ CKEDITOR_5_CONFIGS = {
                 { 'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2' },
                 { 'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3' }
             ]
+        },
+        'alignment' : {
+            'options': [ 'left', 'right', 'center' ]
         }
     },
     'list': {
@@ -310,6 +311,8 @@ CKEDITOR_5_CONFIGS = {
         }
     }
 }
+
+
 
 PAGINATE = 10
 SITE_ID = 1
