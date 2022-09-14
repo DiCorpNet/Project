@@ -80,8 +80,10 @@
 
 
                         <div class="row">
+                        {% if request.user.is_authenticated %}
                             <div class="col-xl-4">
                                 <!-- Personal-Information -->
+
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="header-title mt-0 mb-3">{% trans 'Обо мне' %}</h4>
@@ -115,6 +117,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- Personal-Information -->
 
 {#                                <!-- Toll free number box-->#}
@@ -139,7 +142,8 @@
                                                 <p class="inbox-item-author">Adhamdannaway</p>
                                                 <p class="inbox-item-text">This theme is awesome!</p>
                                                 <p class="inbox-item-date">
-                                                    <a href="#" class="btn btn-sm btn-link text-info font-13"> {% trans 'Ответить' %} </a>
+                                                    <a href="#"
+                                                       class="btn btn-sm btn-link text-info font-13"> {% trans 'Ответить' %} </a>
                                                 </p>
                                             </div>
                                         </div> <!-- end inbox-widget -->
@@ -148,34 +152,36 @@
                                 {% endif %}
 
                             </div> <!-- end col-->
+                        {% endif %}
+                            <div class="{% if request.user.is_authenticated %}col-xl-8 {% else %} col-xl-12 {% endif %}">
 
-                            <div class="col-xl-8">
-
-{#                                <!-- Chart-->#}
-{#                                <div class="card">#}
-{#                                    <div class="card-body">#}
-{#                                        <h4 class="header-title mb-3">Orders & Revenue</h4>#}
-{#                                        <div dir="ltr">#}
-{#                                            <div style="height: 260px;" class="chartjs-chart">#}
-{#                                                <canvas id="high-performing-product"></canvas>#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <!-- End Chart-->#}
+                                {#                                <!-- Chart-->#}
+                                {#                                <div class="card">#}
+                                {#                                    <div class="card-body">#}
+                                {#                                        <h4 class="header-title mb-3">Orders & Revenue</h4>#}
+                                {#                                        <div dir="ltr">#}
+                                {#                                            <div style="height: 260px;" class="chartjs-chart">#}
+                                {#                                                <canvas id="high-performing-product"></canvas>#}
+                                {#                                            </div>#}
+                                {#                                        </div>#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                                {#                                <!-- End Chart-->#}
 
                                 <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="{% if request.user.is_authenticated %} col-sm-4 {% else %} col-sm-12 {% endif %}">
                                         <div class="card tilebox-one">
                                             <div class="card-body">
                                                 <i class="dripicons-blog float-end text-muted"></i>
                                                 <h6 class="text-muted text-uppercase mt-0">{% trans 'Моих записей' %}</h6>
-                                                <h2 class="m-b-20"><a href="{% url  'profile_user_article' profile.username %}">{{ profile.articles.count }}</a></h2>
-{#                                                <span class="badge bg-primary"> +11% </span> <span class="text-muted">From previous period</span>#}
+                                                <h2 class="m-b-20"><a
+                                                        href="{% url  'profile_user_article' profile.username %}">{{ profile.articles.count }}</a>
+                                                </h2>
+                                                {#                                                <span class="badge bg-primary"> +11% </span> <span class="text-muted">From previous period</span>#}
                                             </div> <!-- end card-body-->
                                         </div> <!--end card-->
                                     </div><!-- end col -->
-
+                                    {% if request.user.is_authenticated %}
                                     <div class="col-sm-4">
                                         <div class="card tilebox-one">
                                             <div class="card-body">
@@ -197,11 +203,11 @@
                                             </div> <!-- end card-body-->
                                         </div> <!--end card-->
                                     </div><!-- end col -->
-
+                                    {% endif %}
                                 </div>
                                 <!-- end row -->
 
-
+                                {% if request.user.is_authenticated %}
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="header-title mb-3">{% trans 'Мои проэкты' %}</h4>
@@ -228,7 +234,7 @@
                                         </div> <!-- end table responsive-->
                                     </div> <!-- end col-->
                                 </div> <!-- end row-->
-
+                                {% endif %}
                             </div>
                             <!-- end col -->
 

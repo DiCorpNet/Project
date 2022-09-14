@@ -28,7 +28,6 @@ class MyUser(AbstractUser):
 
     def is_online(self):
         if self.last_online:
-            print((timezone.now() - self.last_online) < timezone.timedelta(minutes=15))
             return (timezone.now() - self.last_online) < timezone.timedelta(minutes=15)
         return False
 

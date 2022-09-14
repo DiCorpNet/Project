@@ -39,13 +39,13 @@
             {{ notify.text }}
         </td>
         <td>
-           {{ notify.created_at|naturaltime }}<br>
-            {{ notify.created_at|timesince }}
+            {{ notify.created_at|naturaltime }}
+        </td>
     </tr>
-{% endfor %}
+        {% endfor %}
     </tbody>
 </table>
-    {% if object_list.has_other_pages %}
+{% if object_list.has_other_pages %}
     {% bootstrap_pagination object_list justify_content="end" %}
-    {% endif %}
+{% endif %}
 
